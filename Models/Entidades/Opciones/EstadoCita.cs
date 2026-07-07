@@ -1,6 +1,6 @@
 ﻿namespace Proyecto_Programacion_III.Models.Entidades.Opciones
 {
-    public enum EstadoCita
+    public enum EstadoAgendamentos
     {
         Programada = 1,
         Confirmada = 2,

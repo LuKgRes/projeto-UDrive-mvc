@@ -10,8 +10,8 @@ using Proyecto_Programacion_III.Data;
 
 namespace Proyecto_Programacion_III.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(Context))]
+    partial class ContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -22,7 +22,7 @@ namespace Proyecto_Programacion_III.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Cita", b =>
+            modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Agendamentos", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,7 +30,8 @@ namespace Proyecto_Programacion_III.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ClienteId")
+                    b.Property<int?>("ClienteId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("Estado")
@@ -39,21 +40,23 @@ namespace Proyecto_Programacion_III.Migrations
                     b.Property<DateTime>("FechaHora")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ServicioId")
+                    b.Property<int?>("ServicosId")
+                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<int>("UsuarioId")
+                    b.Property<int?>("UsuarioId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
 
-                    b.HasIndex("ServicioId");
+                    b.HasIndex("ServicosId");
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Citas");
+                    b.ToTable("Agendamentos");
                 });
 
             modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Cliente", b =>
@@ -73,7 +76,7 @@ namespace Proyecto_Programacion_III.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("NombreCompleto")
+                    b.Property<string>("NomeCompleto")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -90,36 +93,37 @@ namespace Proyecto_Programacion_III.Migrations
                     b.ToTable("Clientes");
                 });
 
-            modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Servicio", b =>
+            modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Servicos", b =>
                 {
-                    b.Property<int>("ServicioId")
+                    b.Property<int>("ServicosId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServicioId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServicosId"));
 
-                    b.Property<decimal>("Costo")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Descripcion")
+                    b.Property<string>("Descricao")
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<int>("DuracionMinutos")
-                        .HasColumnType("int");
-
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.HasKey("ServicioId");
+                    b.Property<decimal>("Valor")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
-                    b.ToTable("Servicios");
+                    b.HasKey("ServicosId");
+
+                    b.ToTable("Servicos");
                 });
 
             modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Usuario", b =>
@@ -137,7 +141,7 @@ namespace Proyecto_Programacion_III.Migrations
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -157,46 +161,46 @@ namespace Proyecto_Programacion_III.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Cita", b =>
+            modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Agendamentos", b =>
                 {
                     b.HasOne("Proyecto_Programacion_III.Models.Entidades.Cliente", "Cliente")
-                        .WithMany("Citas")
+                        .WithMany("Agendamentos")
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Proyecto_Programacion_III.Models.Entidades.Servicio", "Servicio")
-                        .WithMany("Citas")
-                        .HasForeignKey("ServicioId")
+                    b.HasOne("Proyecto_Programacion_III.Models.Entidades.Servicos", "Servicos")
+                        .WithMany("Agendamentos")
+                        .HasForeignKey("ServicosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Proyecto_Programacion_III.Models.Entidades.Usuario", "Usuario")
-                        .WithMany("Citas")
+                        .WithMany("Agendamentos")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Cliente");
 
-                    b.Navigation("Servicio");
+                    b.Navigation("Servicos");
 
                     b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Cliente", b =>
                 {
-                    b.Navigation("Citas");
+                    b.Navigation("Agendamentos");
                 });
 
-            modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Servicio", b =>
+            modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Servicos", b =>
                 {
-                    b.Navigation("Citas");
+                    b.Navigation("Agendamentos");
                 });
 
             modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Usuario", b =>
                 {
-                    b.Navigation("Citas");
+                    b.Navigation("Agendamentos");
                 });
 #pragma warning restore 612, 618
         }

@@ -5,9 +5,9 @@ using Proyecto_Programacion_III.Models.Entidades;
 
 public class ClienteController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    private readonly Context _context;
 
-    public ClienteController(ApplicationDbContext context)
+    public ClienteController(Context context)
     {
         _context = context;
     }

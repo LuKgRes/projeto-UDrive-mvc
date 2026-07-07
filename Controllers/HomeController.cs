@@ -9,9 +9,9 @@ namespace Proyecto_Programacion_III.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext _context;
+        private readonly Context _context;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, Context context)
         {
             _logger = logger;
             _context = context;
@@ -44,34 +44,34 @@ namespace Proyecto_Programacion_III.Controllers
 
             ViewBag.TotalUsuarios = _context.Usuarios.Count();
             ViewBag.TotalClientes = _context.Clientes.Count();
-            ViewBag.TotalCitas = _context.Citas.Count();
+            ViewBag.TotalAgendamentos = _context.Agendamentos.Count();
 
 
-            ViewBag.ServiciosActivos = _context.Servicios
-                .Count(s => s.Estado == EstadoServicio.Activo);
+            ViewBag.ServicossActivos = _context.Servicos
+                .Count(s => s.Estado == EstadoServicos.Activo);
 
-            ViewBag.ServiciosInactivos = _context.Servicios
-                .Count(s => s.Estado == EstadoServicio.Inactivo);
+            ViewBag.ServicossInactivos = _context.Servicos
+                .Count(s => s.Estado == EstadoServicos.Inactivo);
 
-            ViewBag.CitasProgramadas = _context.Citas
-                .Count(c => c.Estado == EstadoCita.Programada);
+            ViewBag.AgendamentosProgramadas = _context.Agendamentos
+                .Count(c => c.Estado == EstadoAgendamentos.Programada);
 
-            ViewBag.CitasCanceladas = _context.Citas
-                .Count(c => c.Estado == EstadoCita.Cancelada);
+            ViewBag.AgendamentosCanceladas = _context.Agendamentos
+                .Count(c => c.Estado == EstadoAgendamentos.Cancelada);
 
 
-            var topServicios = _context.Citas
-                .GroupBy(c => c.Servicio.Nombre)
+            var topServicoss = _context.Agendamentos
+                .GroupBy(c => c.Servicos.Nome)
                 .Select(g => new
                 {
-                    Servicio = g.Key,
+                    Servicos = g.Key,
                     Total = g.Count()
                 })
                 .OrderByDescending(x => x.Total)
                 .Take(3)
                 .ToList();
 
-            ViewBag.TopServicios = topServicios;
+            ViewBag.TopServicoss = topServicoss;
 
             return View();
         }
@@ -79,21 +79,21 @@ namespace Proyecto_Programacion_III.Controllers
         public IActionResult DashboardUsuario()
         {
 
-            ViewBag.TotalCitas = _context.Citas.Count();
+            ViewBag.TotalAgendamentos = _context.Agendamentos.Count();
 
-            ViewBag.ServiciosActivos = _context.Servicios
-               .Count(s => s.Estado == EstadoServicio.Activo);
+            ViewBag.ServicossActivos = _context.Servicos
+               .Count(s => s.Estado == EstadoServicos.Activo);
 
-            ViewBag.ServiciosInactivos = _context.Servicios
-                .Count(s => s.Estado == EstadoServicio.Inactivo);
+            ViewBag.ServicossInactivos = _context.Servicos
+                .Count(s => s.Estado == EstadoServicos.Inactivo);
 
-            ViewBag.CitasProgramadas = _context.Citas
-                .Count(c => c.Estado == EstadoCita.Programada);
+            ViewBag.AgendamentosProgramadas = _context.Agendamentos
+                .Count(c => c.Estado == EstadoAgendamentos.Programada);
 
-            ViewBag.CitasCanceladas = _context.Citas
-                .Count(c => c.Estado == EstadoCita.Cancelada);
+            ViewBag.AgendamentosCanceladas = _context.Agendamentos
+                .Count(c => c.Estado == EstadoAgendamentos.Cancelada);
 
-            ViewBag.Citas = _context.Citas.ToList();
+            ViewBag.Agendamentos = _context.Agendamentos.ToList();
 
             return View();
         }

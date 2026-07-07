@@ -12,8 +12,8 @@ using Proyecto_Programacion_III.Data;
 namespace Proyecto_Programacion_III.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20260405045537_Inicial")]
-    partial class Inicial
+    [Migration("20260630233556_InicioUdrive")]
+    partial class InicioUdrive
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,7 +33,8 @@ namespace Proyecto_Programacion_III.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ClienteId")
+                    b.Property<int?>("ClienteId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("Estado")
@@ -42,10 +43,12 @@ namespace Proyecto_Programacion_III.Migrations
                     b.Property<DateTime>("FechaHora")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ServicosId")
+                    b.Property<int?>("ServicosId")
+                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<int>("UsuarioId")
+                    b.Property<int?>("UsuarioId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -101,9 +104,6 @@ namespace Proyecto_Programacion_III.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServicosId"));
 
-                    b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasMaxLength(300)
@@ -120,9 +120,13 @@ namespace Proyecto_Programacion_III.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<decimal>("Valor")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("ServicosId");
 
-                    b.ToTable("Servicoss");
+                    b.ToTable("Servicos");
                 });
 
             modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Usuario", b =>

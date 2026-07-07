@@ -14,88 +14,59 @@
         var rol = Context.Session.GetString("Rol");
     }
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
+    <div class="sidebar">
 
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                Sistema de Citas
+        <div class="menu-title">
+            <i class="bi bi-list"></i>
+            <span>Menu</span>
+        </div>
+
+        <a asp-controller="Home" asp-action="Index">
+            <span>Início</span>
+            <i class="bi bi-house"></i>
+        </a>
+
+        @if (rol == "Administrador")
+        {
+            <a asp-controller="Usuarios" asp-action="Index">
+                <span>Usuários</span>
+                <i class="bi bi-person"></i>
             </a>
 
-            <div class="collapse navbar-collapse">
+            <a asp-controller="Cliente" asp-action="Index">
+                <span>Clientes</span>
+                <i class="bi bi-people"></i>
+            </a>
 
-                <ul class="navbar-nav me-auto">
+            <a asp-controller="Servicos" asp-action="Index">
+                <span>Serviços</span>
+                <i class="bi bi-tools"></i>
+            </a>
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="Index">
-                            Inicio
-                        </a>
-                    </li>
+            <a asp-controller="Agendamentos" asp-action="Index">
+                <span>Agenda</span>
+                <i class="bi bi-calendar"></i>
+            </a>
+        }
 
-                    @* SOLO ADMIN *@
-                    @if (rol == "Administrador")
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Usuarios" asp-action="Index">
-                                Usuarios
-                            </a>
-                        </li>
+        @if (rol == "Usuario")
+        {
+            <a asp-controller="Agendamentos" asp-action="Index">
+                <span>Agenda</span>
+                <i class="bi bi-calendar"></i>
+            </a>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Cliente" asp-action="Index">
-                                Clientes
-                            </a>
-                        </li>
+            <a asp-controller="Cliente" asp-action="Index">
+                <span>Clientes</span>
+                <i class="bi bi-people"></i>
+            </a>
+        }
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Servicio" asp-action="Index">
-                                Servicios
-                            </a>
-                        </li>
+    </div>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Citas" asp-action="Index">
-                                Citas
-                            </a>
-                        </li>
+    <div class="content">
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="DashboardAdmin">
-                                Dashboard Admin
-                            </a>
-                        </li>
-                    }
-
-                    @* USUARIO *@
-                    @if (rol == "Usuario")
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Citas" asp-action="Index">
-                                Citas
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Cliente" asp-action="Index">
-                                Clientes
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="DashboardUsuario">
-                                Dashboard Usuario
-                            </a>
-                        </li>
-                    }
-
-                </ul>
-
-                <span class="navbar-text text-white me-3">
-                    Rol: @rol
-                </span>
-
-
-            </div>
-        </div>
-    </nav>
-    <div class="container">
+        <div class="container content-container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -112,3 +83,6 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
+

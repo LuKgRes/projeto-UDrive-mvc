@@ -4,11 +4,11 @@ using Proyecto_Programacion_III.Data;
 using Proyecto_Programacion_III.Models.Entidades;
 using Proyecto_Programacion_III.Models.Entidades.Opciones;
 
-public class CitasController : Controller
+public class AgendamentosController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    private readonly Context _context;
 
-    public CitasController(ApplicationDbContext context)
+    public AgendamentosController(Context context)
     {
         _context = context;
     }
@@ -19,128 +19,128 @@ public class CitasController : Controller
         var rol = HttpContext.Session.GetString("Rol");
         var usuarioId = HttpContext.Session.GetString("UsuarioId");
 
-        var citas = _context.Citas
+        var Agendamentos = _context.Agendamentos
             .Include(c => c.Cliente)
-            .Include(c => c.Servicio)
+            .Include(c => c.Servicos)
             .Include(c => c.Usuario)
             .AsQueryable();
 
         if (rol == "Usuario" && usuarioId != null)
         {
             int id = int.Parse(usuarioId);
-            citas = citas.Where(c => c.UsuarioId == id);
+            Agendamentos = Agendamentos.Where(c => c.UsuarioId == id);
         }
 
-        return View(await citas.ToListAsync());
+        return View(await Agendamentos.ToListAsync());
     }
 
     public IActionResult Create()
     {
         ViewBag.Clientes = _context.Clientes.ToList();
-        ViewBag.Servicios = _context.Servicios.ToList();
+        ViewBag.Servicoss = _context.Servicos.ToList();
         ViewBag.Usuarios = _context.Usuarios.ToList();
         return View();
     }
 
 
     [HttpPost]
-    public async Task<IActionResult> Create(Cita cita)
+    public async Task<IActionResult> Create(Agendamentos Agendamento)
     {
-        cita.Estado = EstadoCita.Programada;
+        Agendamento.Estado = EstadoAgendamentos.Programada;
 
-        if (cita.FechaHora < DateTime.Now)
+        if (Agendamento.FechaHora < DateTime.Now)
         {
-            ModelState.AddModelError("FechaHora", "No se pueden agendar citas en fechas pasadas");
+            ModelState.AddModelError("FechaHora", "No se pueden agendar Agendamentos en fechas pasadas");
         }
-        var servicio = _context.Servicios
-        .FirstOrDefault(s => s.ServicioId == cita.ServicioId);
+        var Servicos = _context.Servicos
+        .FirstOrDefault(s => s.ServicosId == Agendamento.ServicosId);
 
-        if (servicio != null && servicio.Estado == EstadoServicio.Inactivo)
+        if (Servicos != null && Servicos.Estado == EstadoServicos.Inactivo)
         {
-            ModelState.AddModelError("ServicioId", "El servicio se encuentra inactivo");
+            ModelState.AddModelError("ServicosId", "El Servicos se encuentra inactivo");
         }
 
         if (ModelState.IsValid)
         {
-            _context.Citas.Add(cita);
+            _context.Agendamentos.Add(Agendamento);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
         ViewBag.Clientes = _context.Clientes.ToList();
-        ViewBag.Servicios = _context.Servicios.ToList();
+        ViewBag.Servicoss = _context.Servicos.ToList();
         ViewBag.Usuarios = _context.Usuarios.ToList();
 
-        return View(cita);
+        return View(Agendamento);
     }
     public async Task<IActionResult> Edit(int id)
     {
-        var cita = await _context.Citas.FindAsync(id);
+        var Agendamento = await _context.Agendamentos.FindAsync(id);
 
-        if (cita == null)
+        if (Agendamento == null)
             return NotFound();
 
-        if (cita.Estado == EstadoCita.Cancelada)
+        if (Agendamento.Estado == EstadoAgendamentos.Cancelada)
             return RedirectToAction("Index");
 
         ViewBag.Clientes = _context.Clientes.ToList();
-        ViewBag.Servicios = _context.Servicios.ToList();
+        ViewBag.Servicoss = _context.Servicos.ToList();
         ViewBag.Usuarios = _context.Usuarios.ToList();
 
-        return View(cita);
+        return View(Agendamento);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Edit(Cita cita)
+    public async Task<IActionResult> Edit(Agendamentos Agendamento)
     {
-        var citaDb = await _context.Citas.FindAsync(cita.Id);
+        var AgendamentoDb = await _context.Agendamentos.FindAsync(Agendamento.Id);
 
-        if (citaDb == null)
+        if (AgendamentoDb == null)
             return NotFound();
 
-        if (citaDb.Estado == EstadoCita.Cancelada)
+        if (AgendamentoDb.Estado == EstadoAgendamentos.Cancelada)
         {
-            ModelState.AddModelError("", "No se puede editar una cita cancelada");
+            ModelState.AddModelError("", "No se puede editar una Agendamento cancelada");
         }
 
-        if (cita.FechaHora < DateTime.Now)
+        if (Agendamento.FechaHora < DateTime.Now)
         {
             ModelState.AddModelError("FechaHora", "No se pueden usar fechas pasadas");
         }
 
-        var servicio = _context.Servicios
-            .FirstOrDefault(s => s.ServicioId == cita.ServicioId);
+        var Servicos = _context.Servicos
+            .FirstOrDefault(s => s.ServicosId == Agendamento.ServicosId);
 
-        if (servicio != null && servicio.Estado == EstadoServicio.Inactivo)
+        if (Servicos != null && Servicos.Estado == EstadoServicos.Inactivo)
         {
-            ModelState.AddModelError("ServicioId", "Servicio inactivo");
+            ModelState.AddModelError("ServicosId", "Servicos inactivo");
         }
 
         if (ModelState.IsValid)
         {
-            citaDb.ClienteId = cita.ClienteId;
-            citaDb.ServicioId = cita.ServicioId;
-            citaDb.UsuarioId = cita.UsuarioId;
-            citaDb.FechaHora = cita.FechaHora;
+            AgendamentoDb.ClienteId = Agendamento.ClienteId;
+            AgendamentoDb.ServicosId = Agendamento.ServicosId;
+            AgendamentoDb.UsuarioId = Agendamento.UsuarioId;
+            AgendamentoDb.FechaHora = Agendamento.FechaHora;
 
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
         ViewBag.Clientes = _context.Clientes.ToList();
-        ViewBag.Servicios = _context.Servicios.ToList();
+        ViewBag.Servicoss = _context.Servicos.ToList();
         ViewBag.Usuarios = _context.Usuarios.ToList();
 
-        return View(cita);
+        return View(Agendamento);
     }
 
     public async Task<IActionResult> Cancelar(int id)
     {
-        var cita = await _context.Citas.FindAsync(id);
+        var Agendamento = await _context.Agendamentos.FindAsync(id);
 
-        if (cita != null)
+        if (Agendamento != null)
         {
-            cita.Estado = EstadoCita.Cancelada;
+            Agendamento.Estado = EstadoAgendamentos.Cancelada;
             await _context.SaveChangesAsync();
         }
 
@@ -149,23 +149,23 @@ public class CitasController : Controller
 
     public async Task<IActionResult> Delete(int id)
     {
-        var cita = await _context.Citas
+        var Agendamento = await _context.Agendamentos
             .Include(c => c.Cliente)
-            .Include(c => c.Servicio)
+            .Include(c => c.Servicos)
             .Include(c => c.Usuario)
             .FirstOrDefaultAsync(c => c.Id == id);
 
-        return View(cita);
+        return View(Agendamento);
     }
 
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var cita = await _context.Citas.FindAsync(id);
+        var Agendamento = await _context.Agendamentos.FindAsync(id);
 
-        if (cita != null)
+        if (Agendamento != null)
         {
-            _context.Citas.Remove(cita);
+            _context.Agendamentos.Remove(Agendamento);
             await _context.SaveChangesAsync();
         }
 

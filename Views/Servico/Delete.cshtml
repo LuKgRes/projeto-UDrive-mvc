@@ -1,0 +1,17 @@
+﻿@model Proyecto_Programacion_III.Models.Entidades.Servicos
+
+<h2>Eliminar Servicos</h2>
+
+<h4>¿Está seguro que desea eliminar este Servicos?</h4>
+
+<div>
+    <strong>Nome:</strong> @Model.Nome <br />
+    <strong>Duración:</strong> @Model.Data <br />
+    <strong>Valor:</strong> @Model.Valor <br />
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="ServicosId" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

@@ -18,5 +18,58 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin: 0;
+    background: #7d7d7d;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 190px;
+    height: 100vh;
+    background: #d8d8d8;
+    padding: 0;
+}
+
+.menu-title {
+    background: #63b9d6;
+    padding: 15px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .menu-title span {
+        font-size: 20px;
+    }
+
+.sidebar a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px;
+    padding: 12px;
+    background: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+    .sidebar a:hover {
+        background: #efefef;
+    }
+
+.content {
+    margin-left: 200px;
+    min-height: 100vh;
+}
+
+.content-container {
+    max-width: 100%;
+    padding: 40px;
+}
+
+footer {
+    display: none;
 }

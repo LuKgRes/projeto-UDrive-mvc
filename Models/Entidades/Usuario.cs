@@ -7,7 +7,7 @@ namespace Proyecto_Programacion_III.Models.Entidades
     {
         public int Id { get; set; }
 
-        public string Nombre { get; set; }
+        public string Nome { get; set; }
 
         public string Email { get; set; }
 
@@ -17,11 +17,11 @@ namespace Proyecto_Programacion_III.Models.Entidades
 
         public EstadoUsuario Estado { get; set; }
 
-        public ICollection<Cita> Citas { get; set; }
+        public ICollection<Agendamentos> Agendamentos { get; set; }
 
         public Usuario()
         {
-            Citas = new List<Cita>();
+            Agendamentos = new List<Agendamentos>();
         }
     }
 }

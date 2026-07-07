@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Proyecto_Programacion_III.Models.Entidades
 {
-    public class Cita
+    public class Agendamentos
     {
         public int Id { get; set; }
 
@@ -14,9 +14,9 @@ namespace Proyecto_Programacion_III.Models.Entidades
         public Cliente Cliente { get; set; }
 
         [Required]
-        public int? ServicioId { get; set; }
+        public int? ServicosId { get; set; }
         [ValidateNever]
-        public Servicio Servicio { get; set; }
+        public Servicos Servicos { get; set; }
 
         [Required]
         public int? UsuarioId { get; set; }
@@ -27,6 +27,6 @@ namespace Proyecto_Programacion_III.Models.Entidades
         public DateTime FechaHora { get; set; }
 
         [Required]
-        public EstadoCita Estado { get; set; }
+        public EstadoAgendamentos Estado { get; set; }
     }
 }

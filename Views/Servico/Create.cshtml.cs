@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Proyecto_Programacion_III.Views.Servicio
+namespace Proyecto_Programacion_III.Views.Servicos
 {
-    public class IndexModel : PageModel
+    public class CreateModel : PageModel
     {
         public void OnGet()
         {

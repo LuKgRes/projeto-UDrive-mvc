@@ -1,6 +1,6 @@
-# Sistema Web de Gestión de Servicios y Citas
+# Sistema Web de Gestión de Servicoss y Agendamentos
 
-Aplicación web desarrollada como proyecto académico, que permite la gestión integral de usuarios, clientes, servicios y citas dentro de una organización de servicios.
+Aplicación web desarrollada como proyecto académico, que permite la gestión integral de usuarios, clientes, Servicoss y Agendamentos dentro de una organización de Servicoss.
 
 ## Tecnologías utilizadas
 - C#
@@ -24,16 +24,16 @@ Aplicación web desarrollada como proyecto académico, que permite la gestión i
 - Registro, edición y eliminación de clientes
 - Consulta de información
 
-### Gestión de servicios (Administrador)
-- Crear y administrar servicios
-- Activar / desactivar servicios
-- Definir duración y costo
+### Gestión de Servicoss (Administrador)
+- Crear y administrar Servicoss
+- Activar / desactivar Servicoss
+- Definir duración y Valor
 
-###  Gestión de citas
-- Registro de citas para clientes
-- Edición y cancelación de citas
-- Control de citas por usuario
-- Administración total de citas (Administrador)
+###  Gestión de Agendamentos
+- Registro de Agendamentos para clientes
+- Edición y cancelación de Agendamentos
+- Control de Agendamentos por usuario
+- Administración total de Agendamentos (Administrador)
 
 ### Dashboard de estadísticas
 - Estadísticas globales (Administrador)
@@ -41,9 +41,9 @@ Aplicación web desarrollada como proyecto académico, que permite la gestión i
 - Consultas en tiempo real desde la base de datos
 
 ## Reglas de negocio implementadas
-- No se pueden agendar citas con servicios inactivos
-- No se permiten citas en fechas pasadas
-- Las citas canceladas no pueden modificarse
+- No se pueden agendar Agendamentos con Servicoss inactivos
+- No se permiten Agendamentos en fechas pasadas
+- Las Agendamentos canceladas no pueden modificarse
 - Restricción de acceso según rol
 
 ## Objetivo del proyecto

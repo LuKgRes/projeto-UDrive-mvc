@@ -22,8 +22,8 @@
 
         <div class="col-md-3">
             <div class="card bg-primary text-white p-3">
-                <h5>Citas</h5>
-                <h2>@ViewBag.TotalCitas</h2>
+                <h5>Agendamentos</h5>
+                <h2>@ViewBag.TotalAgendamentos</h2>
             </div>
         </div>
     </div>
@@ -32,15 +32,15 @@
 
         <div class="col-md-3">
             <div class="card bg-success text-white p-3">
-                <h5>Servicios Activos</h5>
-                <h2>@ViewBag.ServiciosActivos</h2>
+                <h5>Servicoss Activos</h5>
+                <h2>@ViewBag.ServicossActivos</h2>
             </div>
         </div>
 
         <div class="col-md-3">
             <div class="card bg-danger text-white p-3">
-                <h5>Servicios Inactivos</h5>
-                <h2>@ViewBag.ServiciosInactivos</h2>
+                <h5>Servicoss Inactivos</h5>
+                <h2>@ViewBag.ServicossInactivos</h2>
             </div>
         </div>
 
@@ -51,14 +51,14 @@
         <div class="col-md-3">
             <div class="card bg-success text-white p-3">
                 <h5>Programadas</h5>
-                <h2>@ViewBag.CitasProgramadas</h2>
+                <h2>@ViewBag.AgendamentosProgramadas</h2>
             </div>
         </div>
 
         <div class="col-md-3">
             <div class="card bg-secondary text-white p-3">
                 <h5>Canceladas</h5>
-                <h2>@ViewBag.CitasCanceladas</h2>
+                <h2>@ViewBag.AgendamentosCanceladas</h2>
             </div>
         </div>
     </div>
@@ -66,20 +66,20 @@
 <br />
 
     <div class="mt-4">
-        <h4>Top 3 Servicios</h4>
+        <h4>Top 3 Servicoss</h4>
 
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Servicio</th>
+                    <th>Servicos</th>
                     <th>Cantidad</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in ViewBag.TopServicios)
+                @foreach (var item in ViewBag.TopServicoss)
                 {
                     <tr>
-                        <td>@item.Servicio</td>
+                        <td>@item.Servicos</td>
                         <td>@item.Total</td>
                     </tr>
                 }

@@ -7,9 +7,9 @@ namespace Proyecto_Programacion_III.Controllers
 {
     public class UsuariosController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly Context _context;
 
-        public UsuariosController(ApplicationDbContext context)
+        public UsuariosController(Context context)
         {
             _context = context;
         }

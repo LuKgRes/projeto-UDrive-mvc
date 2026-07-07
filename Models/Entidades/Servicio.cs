@@ -1,36 +1,37 @@
-﻿using Proyecto_Programacion_III.Models.Entidades.Opciones;
+﻿using Microsoft.EntityFrameworkCore;
+using Proyecto_Programacion_III.Models.Entidades.Opciones;
 using System.ComponentModel.DataAnnotations;
 
 namespace Proyecto_Programacion_III.Models.Entidades
 {
-    public class Servicio
+    public class Servicos
     {
         [Key]
-        public int ServicioId { get; set; }
+        public int ServicosId { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string Nombre { get; set; }
+        public string Nome { get; set; }
 
         [StringLength(300)]
-        public string Descripcion { get; set; }
+        public string Descricao { get; set; }
 
         [Required]
-        [Range(1, 600)]
-        public int DuracionMinutos { get; set; }
+        public DateTime Data { get; set; }
 
         [Required]
         [Range(0.01, 999999)]
-        public decimal Costo { get; set; }
+        [Precision(18, 2)]
+        public decimal Valor { get; set; }
 
         [Required]
-        public EstadoServicio Estado { get; set; }
+        public EstadoServicos Estado { get; set; }
 
-        public ICollection<Cita> Citas { get; set; }
+        public ICollection<Agendamentos> Agendamentos { get; set; }
 
-        public Servicio()
+        public Servicos()
         {
-            Citas = new List<Cita>();
+            Agendamentos = new List<Agendamentos>();
         }
     }
 }

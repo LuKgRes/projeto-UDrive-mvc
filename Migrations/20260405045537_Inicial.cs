@@ -17,7 +17,7 @@ namespace Proyecto_Programacion_III.Migrations
                     ClienteId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Identificacion = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    NombreCompleto = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    NomeCompleto = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Telefono = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Correo = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -27,20 +27,20 @@ namespace Proyecto_Programacion_III.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Servicios",
+                name: "Servicoss",
                 columns: table => new
                 {
-                    ServicioId = table.Column<int>(type: "int", nullable: false)
+                    ServicosId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    DuracionMinutos = table.Column<int>(type: "int", nullable: false),
-                    Costo = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    Duracao = table.Column<int>(type: "int", nullable: false),
+                    Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Estado = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Servicios", x => x.ServicioId);
+                    table.PrimaryKey("PK_Servicoss", x => x.ServicosId);
                 });
 
             migrationBuilder.CreateTable(
@@ -49,7 +49,7 @@ namespace Proyecto_Programacion_III.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rol = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -61,34 +61,34 @@ namespace Proyecto_Programacion_III.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Citas",
+                name: "Agendamentos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
-                    ServicioId = table.Column<int>(type: "int", nullable: false),
+                    ServicosId = table.Column<int>(type: "int", nullable: false),
                     UsuarioId = table.Column<int>(type: "int", nullable: false),
                     FechaHora = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Estado = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Citas", x => x.Id);
+                    table.PrimaryKey("PK_Agendamentos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Citas_Clientes_ClienteId",
+                        name: "FK_Agendamentos_Clientes_ClienteId",
                         column: x => x.ClienteId,
                         principalTable: "Clientes",
                         principalColumn: "ClienteId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Citas_Servicios_ServicioId",
-                        column: x => x.ServicioId,
-                        principalTable: "Servicios",
-                        principalColumn: "ServicioId",
+                        name: "FK_Agendamentos_Servicoss_ServicosId",
+                        column: x => x.ServicosId,
+                        principalTable: "Servicoss",
+                        principalColumn: "ServicosId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Citas_Usuarios_UsuarioId",
+                        name: "FK_Agendamentos_Usuarios_UsuarioId",
                         column: x => x.UsuarioId,
                         principalTable: "Usuarios",
                         principalColumn: "Id",
@@ -96,18 +96,18 @@ namespace Proyecto_Programacion_III.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Citas_ClienteId",
-                table: "Citas",
+                name: "IX_Agendamentos_ClienteId",
+                table: "Agendamentos",
                 column: "ClienteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Citas_ServicioId",
-                table: "Citas",
-                column: "ServicioId");
+                name: "IX_Agendamentos_ServicosId",
+                table: "Agendamentos",
+                column: "ServicosId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Citas_UsuarioId",
-                table: "Citas",
+                name: "IX_Agendamentos_UsuarioId",
+                table: "Agendamentos",
                 column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
@@ -127,13 +127,13 @@ namespace Proyecto_Programacion_III.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Citas");
+                name: "Agendamentos");
 
             migrationBuilder.DropTable(
                 name: "Clientes");
 
             migrationBuilder.DropTable(
-                name: "Servicios");
+                name: "Servicoss");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");

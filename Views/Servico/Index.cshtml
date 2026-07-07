@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Proyecto_Programacion_III.Models.Entidades.Servicos>
+
+@{
+    ViewData["Title"] = "Lista de Servicoss";
+}
+
+<h2>Lista de Servicoss</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Servicos</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Duración</th>
+            <th>Valor</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nome</td>
+                <td>@item.Data</td>
+                <td>@item.Valor</td>
+                <td>@item.Estado</td>
+                <td>
+                  <a asp-action="Edit" asp-route-id="@item.ServicosId" class="btn btn-primary btn-sm">Editar</a>
+                  <a asp-action="Delete" asp-route-id="@item.ServicosId" class="btn btn-primary btn-sm">Eliminar</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

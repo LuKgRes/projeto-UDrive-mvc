@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Proyecto_Programacion_III.Views.Citas
+namespace Proyecto_Programacion_III.Views.Servicos
 {
     public class EditModel : PageModel
     {

@@ -1,7 +1,7 @@
-﻿@model Proyecto_Programacion_III.Models.Entidades.Cita
+﻿@model Proyecto_Programacion_III.Models.Entidades.Agendamentos
 @using Proyecto_Programacion_III.Models.Entidades.Opciones
 
-<h2>Editar Cita</h2>
+<h2>Editar Agendamentos</h2>
 
 <form asp-action="Edit" method="post">
 
@@ -16,24 +16,24 @@
         {
             <option value="@item.ClienteId"
                     selected="@(item.ClienteId == Model.ClienteId)">
-                @item.NombreCompleto
+                @item.NomeCompleto
             </option>
         }
     </select>
     <span asp-validation-for="ClienteId" class="text-danger"></span>
 
 
-    <select asp-for="ServicioId" class="form-control">
-        <option disabled value="">-- Seleccione Servicio --</option>
-        @foreach (var item in ViewBag.Servicios)
+    <select asp-for="ServicosId" class="form-control">
+        <option disabled value="">-- Seleccione Servicos --</option>
+        @foreach (var item in ViewBag.Servicoss)
         {
-            <option value="@item.ServicioId"
-                    selected="@(item.ServicioId == Model.ServicioId)">
-                @item.Nombre
+            <option value="@item.ServicosId"
+                    selected="@(item.ServicosId == Model.ServicosId)">
+                @item.Nome
             </option>
         }
     </select>
-    <span asp-validation-for="ServicioId" class="text-danger"></span>
+    <span asp-validation-for="ServicosId" class="text-danger"></span>
 
 
     <select asp-for="UsuarioId" class="form-control">
@@ -42,7 +42,7 @@
         {
             <option value="@item.Id"
                     selected="@(item.Id == Model.UsuarioId)">
-                @item.Nombre
+                @item.Nome
             </option>
         }
     </select>

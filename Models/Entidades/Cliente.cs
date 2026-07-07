@@ -14,7 +14,7 @@ namespace Proyecto_Programacion_III.Models.Entidades
 
         [Required]
         [StringLength(100)]
-        public string NombreCompleto { get; set; }
+        public string NomeCompleto { get; set; }
 
         [Required]
         [Phone]
@@ -25,6 +25,6 @@ namespace Proyecto_Programacion_III.Models.Entidades
         public string Correo { get; set; }
 
         [ValidateNever]
-        public ICollection<Cita> Citas { get; set; }
+        public ICollection<Agendamentos> Agendamentos { get; set; }
     }
 }

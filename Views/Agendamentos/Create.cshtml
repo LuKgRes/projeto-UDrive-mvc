@@ -1,7 +1,7 @@
-﻿@model Proyecto_Programacion_III.Models.Entidades.Cita
+﻿@model Proyecto_Programacion_III.Models.Entidades.Agendamentos 
 
 <form asp-action="Create" method="post">
-    <h2>Creacion de cita</h2>
+    <h2>Creacion de Agendamento</h2>
     <br />
  
     <h5>Seleccione cliente</h5>
@@ -9,21 +9,21 @@
         <option disabled selected value="">-- Seleccione Cliente --</option>
         @foreach (var item in ViewBag.Clientes)
         {
-            <option value="@item.ClienteId">@item.NombreCompleto</option>
+            <option value="@item.ClienteId">@item.NomeCompleto</option>
         }
     </select>
     <span asp-validation-for="ClienteId" class="text-danger"></span>
     <br />
 
-    <h5>Seleccione servicio</h5>
-    <select asp-for="ServicioId" class="form-control" required>
-        <option disabled selected value="">-- Seleccione Servicio --</option>
-        @foreach (var item in ViewBag.Servicios)
+    <h5>Seleccione Servicos</h5>
+    <select asp-for="ServicosId" class="form-control" required>
+        <option disabled selected value="">-- Seleccione Servicos --</option>
+        @foreach (var item in ViewBag.Servicoss)
         {
-            <option value="@item.ServicioId">@item.Nombre</option>
+            <option value="@item.ServicosId">@item.Nome</option>
         }
     </select>
-    <span asp-validation-for="ServicioId" class="text-danger"></span>
+    <span asp-validation-for="ServicosId" class="text-danger"></span>
     <br />
     
     <h5>Seleccione usuario</h5>
@@ -31,7 +31,7 @@
         <option disabled selected value="">-- Seleccione Usuario --</option>
         @foreach (var item in ViewBag.Usuarios)
         {
-            <option value="@item.Id">@item.Nombre</option>
+            <option value="@item.Id">@item.Nome</option>
         }
     </select>
     <span asp-validation-for="UsuarioId" class="text-danger"></span>

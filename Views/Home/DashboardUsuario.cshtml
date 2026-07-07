@@ -6,8 +6,8 @@
 
         <div class="col-md-3">
             <div class="card bg-success text-white p-3">
-               <h4>Citas Activas</h4>
-               <h2>@ViewBag.TotalCitas</h2>
+               <h4>Agendamentos Activas</h4>
+               <h2>@ViewBag.TotalAgendamentos</h2>
             </div>
             </div>
         
@@ -17,7 +17,7 @@
         <div class="col-md-3">
             <div class="card bg-danger text-white p-3">
                 <h4>Canceladas</h4>
-                <h2>@ViewBag.CitasCanceladas</h2>
+                <h2>@ViewBag.AgendamentosCanceladas</h2>
             </div>
         </div>
         </div>
@@ -25,7 +25,7 @@
         <br />
 
         <div class="mt-3" >
-            <h4>Proximas Citas</h4>
+            <h4>Proximas Agendamentos</h4>
 
             <table class="table table-striped">
                 <thead>
@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in ViewBag.Citas)
+                    @foreach (var item in ViewBag.Agendamentos)
                     {
                         <tr>
                             <td>@item.FechaHora</td>
