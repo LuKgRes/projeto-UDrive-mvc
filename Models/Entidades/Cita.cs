@@ -18,6 +18,10 @@ namespace Proyecto_Programacion_III.Models.Entidades
         [ValidateNever]
         public Servicos Servicos { get; set; }
 
+        
+        [StringLength(500)]
+        public string? DescricaoPersonalizada { get; set; }
+
         [Required]
         public int? UsuarioId { get; set; }
         [ValidateNever]
