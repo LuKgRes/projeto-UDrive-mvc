@@ -17,7 +17,7 @@ namespace Proyecto_Programacion_III.Models.Entidades
         public string Descricao { get; set; }
 
         [Required]
-        public DateTime Data { get; set; }
+        public DateTime Tempo { get; set; }
 
         [Required]
         [Range(0.01, 999999)]

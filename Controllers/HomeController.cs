@@ -50,8 +50,8 @@ namespace Proyecto_Programacion_III.Controllers
             ViewBag.ServicossActivos = _context.Servicos
                 .Count(s => s.Estado == EstadoServicos.Activo);
 
-            ViewBag.ServicossInactivos = _context.Servicos
-                .Count(s => s.Estado == EstadoServicos.Inactivo);
+            ViewBag.ServicossInativos = _context.Servicos
+                .Count(s => s.Estado == EstadoServicos.Inativo);
 
             ViewBag.AgendamentosProgramadas = _context.Agendamentos
                 .Count(c => c.Estado == EstadoAgendamentos.Programada);
@@ -84,8 +84,8 @@ namespace Proyecto_Programacion_III.Controllers
             ViewBag.ServicossActivos = _context.Servicos
                .Count(s => s.Estado == EstadoServicos.Activo);
 
-            ViewBag.ServicossInactivos = _context.Servicos
-                .Count(s => s.Estado == EstadoServicos.Inactivo);
+            ViewBag.ServicossInativos = _context.Servicos
+                .Count(s => s.Estado == EstadoServicos.Inativo);
 
             ViewBag.AgendamentosProgramadas = _context.Agendamentos
                 .Count(c => c.Estado == EstadoAgendamentos.Programada);

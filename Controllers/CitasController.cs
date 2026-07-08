@@ -55,9 +55,9 @@ public class AgendamentosController : Controller
         var Servicos = _context.Servicos
         .FirstOrDefault(s => s.ServicosId == Agendamento.ServicosId);
 
-        if (Servicos != null && Servicos.Estado == EstadoServicos.Inactivo)
+        if (Servicos != null && Servicos.Estado == EstadoServicos.Inativo)
         {
-            ModelState.AddModelError("ServicosId", "El Servicos se encuentra inactivo");
+            ModelState.AddModelError("ServicosId", "El Servicos se encuentra Inativo");
         }
 
         if (ModelState.IsValid)
@@ -111,9 +111,9 @@ public class AgendamentosController : Controller
         var Servicos = _context.Servicos
             .FirstOrDefault(s => s.ServicosId == Agendamento.ServicosId);
 
-        if (Servicos != null && Servicos.Estado == EstadoServicos.Inactivo)
+        if (Servicos != null && Servicos.Estado == EstadoServicos.Inativo)
         {
-            ModelState.AddModelError("ServicosId", "Servicos inactivo");
+            ModelState.AddModelError("ServicosId", "Servicos Inativo");
         }
 
         if (ModelState.IsValid)

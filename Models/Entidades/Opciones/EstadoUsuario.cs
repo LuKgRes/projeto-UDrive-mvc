@@ -3,7 +3,7 @@
     public enum EstadoUsuario
     {
         Activo = 1,
-        Inactivo = 2,
+        Inativo = 2,
         Suspendido = 3
     }
 }

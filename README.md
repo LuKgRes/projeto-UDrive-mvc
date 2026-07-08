@@ -41,7 +41,7 @@ Aplicación web desarrollada como proyecto académico, que permite la gestión i
 - Consultas en tiempo real desde la base de datos
 
 ## Reglas de negocio implementadas
-- No se pueden agendar Agendamentos con Servicoss inactivos
+- No se pueden agendar Agendamentos con Servicoss Inativos
 - No se permiten Agendamentos en fechas pasadas
 - Las Agendamentos canceladas no pueden modificarse
 - Restricción de acceso según rol

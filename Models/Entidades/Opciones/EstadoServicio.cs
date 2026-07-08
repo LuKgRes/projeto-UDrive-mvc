@@ -2,7 +2,7 @@
 {
     public enum EstadoServicos
     {
-        Activo = 1,
-        Inactivo = 2
+        Ativo = 1,
+        Inativo = 2
     }
 }
