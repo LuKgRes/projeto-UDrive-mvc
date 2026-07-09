@@ -22,13 +22,13 @@ public class AgendamentosController : Controller
         var Agendamentos = _context.Agendamentos
             .Include(c => c.Cliente)
             .Include(c => c.Servicos)
-            .Include(c => c.Usuario)
+            
             .AsQueryable();
 
         if (rol == "Usuario" && usuarioId != null)
         {
             int id = int.Parse(usuarioId);
-            Agendamentos = Agendamentos.Where(c => c.UsuarioId == id);
+            Agendamentos = Agendamentos.Where(c => c.ClienteId == id);
         }
 
         return View(await Agendamentos.ToListAsync());
@@ -120,8 +120,7 @@ public class AgendamentosController : Controller
         {
             AgendamentoDb.ClienteId = Agendamento.ClienteId;
             AgendamentoDb.ServicosId = Agendamento.ServicosId;
-            AgendamentoDb.UsuarioId = Agendamento.UsuarioId;
-            AgendamentoDb.FechaHora = Agendamento.FechaHora;
+                   AgendamentoDb.FechaHora = Agendamento.FechaHora;
 
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -152,7 +151,7 @@ public class AgendamentosController : Controller
         var Agendamento = await _context.Agendamentos
             .Include(c => c.Cliente)
             .Include(c => c.Servicos)
-            .Include(c => c.Usuario)
+       
             .FirstOrDefaultAsync(c => c.Id == id);
 
         return View(Agendamento);

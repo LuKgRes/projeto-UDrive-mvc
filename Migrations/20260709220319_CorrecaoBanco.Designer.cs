@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Proyecto_Programacion_III.Data;
 
@@ -11,9 +12,11 @@ using Proyecto_Programacion_III.Data;
 namespace Proyecto_Programacion_III.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20260709220319_CorrecaoBanco")]
+    partial class CorrecaoBanco
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,6 +52,7 @@ namespace Proyecto_Programacion_III.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("UsuarioId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -178,13 +182,17 @@ namespace Proyecto_Programacion_III.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Proyecto_Programacion_III.Models.Entidades.Usuario", null)
+                    b.HasOne("Proyecto_Programacion_III.Models.Entidades.Usuario", "Usuario")
                         .WithMany("Agendamentos")
-                        .HasForeignKey("UsuarioId");
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Cliente");
 
                     b.Navigation("Servicos");
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Cliente", b =>

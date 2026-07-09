@@ -26,16 +26,6 @@
     <span asp-validation-for="ServicosId" class="text-danger"></span>
     <br />
     
-    <h5>Seleccione usuario</h5>
-    <select asp-for="UsuarioId" class="form-control" required>
-        <option disabled selected value="">-- Seleccione Usuario --</option>
-        @foreach (var item in ViewBag.Usuarios)
-        {
-            <option value="@item.Id">@item.Nome</option>
-        }
-    </select>
-    <span asp-validation-for="UsuarioId" class="text-danger"></span>
-    
     <br />
     <h5>Seleccione fecha</h5>
     <input asp-for="FechaHora" type="datetime-local" class="form-control" />

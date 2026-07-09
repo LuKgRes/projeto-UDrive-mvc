@@ -22,10 +22,7 @@ namespace Proyecto_Programacion_III.Models.Entidades
         [StringLength(500)]
         public string? DescricaoPersonalizada { get; set; }
 
-        [Required]
-        public int? UsuarioId { get; set; }
-        [ValidateNever]
-        public Usuario Usuario { get; set; }
+
 
         [Required]
         public DateTime FechaHora { get; set; }

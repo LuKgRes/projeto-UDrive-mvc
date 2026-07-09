@@ -32,9 +32,9 @@ namespace Proyecto_Programacion_III.Data
 
             // Agendamento -> Usuario (1 usuário tem N Agendamentos)
             modelBuilder.Entity<Agendamentos>()
-                .HasOne(a => a.Usuario)
+                .HasOne(a => a.Cliente)
                 .WithMany(u => u.Agendamentos)
-                .HasForeignKey(a => a.UsuarioId);
+                .HasForeignKey(a => a.ClienteId);
 
             // Agendamento -> Cliente (1 cliente tem N Agendamentos)
             modelBuilder.Entity<Agendamentos>()
