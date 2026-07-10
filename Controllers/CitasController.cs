@@ -37,7 +37,7 @@ public class AgendamentosController : Controller
     public IActionResult Create()
     {
         ViewBag.Clientes = _context.Clientes.ToList();
-        ViewBag.Servicoss = _context.Servicos.ToList();
+        ViewBag.Servicos = _context.Servicos.ToList();
         ViewBag.Usuarios = _context.Usuarios.ToList();
         return View();
     }
@@ -84,7 +84,7 @@ public class AgendamentosController : Controller
             return RedirectToAction("Index");
 
         ViewBag.Clientes = _context.Clientes.ToList();
-        ViewBag.Servicoss = _context.Servicos.ToList();
+        ViewBag.Servicos = _context.Servicos.ToList();
         ViewBag.Usuarios = _context.Usuarios.ToList();
 
         return View(Agendamento);
