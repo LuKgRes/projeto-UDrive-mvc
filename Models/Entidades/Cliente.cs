@@ -18,11 +18,11 @@ namespace Proyecto_Programacion_III.Models.Entidades
 
         [Required]
         [Phone]
-        public string Telefono { get; set; }
+        public string Telefone { get; set; }
 
         [Required]
         [EmailAddress]
-        public string Correo { get; set; }
+        public string Email { get; set; }
 
         [ValidateNever]
         public ICollection<Agendamentos> Agendamentos { get; set; }

@@ -9,10 +9,10 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>Identificación</th>
+            <th>Id</th>
             <th>Nome</th>
-            <th>Teléfono</th>
-            <th>Correo</th>
+            <th>Telefone</th>
+            <th>Email</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -22,8 +22,8 @@
             <tr>
                 <td>@item.Identificacion</td>
                 <td>@item.NomeCompleto</td>
-                <td>@item.Telefono</td>
-                <td>@item.Correo</td>
+                <td>@item.Telefone</td>
+                <td>@item.Email</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.ClienteId" class="btn btn-primary btn-sm">Editar</a>
                     <a asp-action="Delete" asp-route-id="@item.ClienteId" class="btn btn-primary btn-sm">Eliminar</a>

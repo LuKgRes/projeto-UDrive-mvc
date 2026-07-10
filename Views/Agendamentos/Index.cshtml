@@ -1,42 +1,162 @@
 ﻿@model IEnumerable<Proyecto_Programacion_III.Models.Entidades.Agendamentos>
 @using Proyecto_Programacion_III.Models.Entidades.Opciones
 
-<h2>Lista de Agendamentos</h2>
+<style>
+    .agendamentos-container {
+        max-width: 1000px;
+        margin: 40px auto;
+        background-color: #ffffff;
+        padding: 32px 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
 
-<a asp-action="Create" class="btn btn-primary">Novo Agendamento</a>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Cliente</th>
-            <th>Servicos</th>
-            <th>Usuario</th>
-            <th>Fecha</th>
-            <th>Estado</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Cliente?.NomeCompleto</td>
-                <td>@item.Servicos?.Nome</td>
-                <td>@item.Data</td>
-                <td>@item.Estado</td>
-                <td>
-                    @if (item.Estado != EstadoAgendamentos.Cancelada)
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar</a>
-                        <a asp-action="Cancelar" asp-route-id="@item.Id" class="btn btn-danger">Cancelar</a>
-                    }
-                    else
-                    {
-                        <span class="text-danger">Cancelada</span>
-                    }
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
-                </td>
-            </tr>
+        .agendamentos-container h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1e1e2f;
+            margin-bottom: 20px;
         }
-    </tbody>
-</table>
+
+    .btn {
+        display: inline-block;
+        padding: 8px 18px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s, transform 0.1s;
+    }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+    .btn-primary {
+        background-color: #2563eb;
+        color: #fff;
+    }
+
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+            color: #fff;
+        }
+
+    .btn-danger {
+        background-color: #dc2626;
+        color: #fff;
+        margin-left: 6px;
+    }
+
+        .btn-danger:hover {
+            background-color: #b91c1c;
+            color: #fff;
+        }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 24px;
+        font-size: 0.95rem;
+    }
+
+        .table thead th {
+            text-align: left;
+            padding: 12px 16px;
+            color: #6b7280;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .table tbody tr {
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.15s;
+        }
+
+            .table tbody tr:hover {
+                background-color: #f9fafb;
+            }
+
+        .table tbody td {
+            padding: 14px 16px;
+            color: #1f2937;
+            vertical-align: middle;
+        }
+
+    .status-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+
+    .status-programada {
+        background-color: #dbeafe;
+        color: #1d4ed8;
+    }
+
+    .status-cancelada {
+        background-color: #fee2e2;
+        color: #b91c1c;
+    }
+
+    .status-concluida {
+        background-color: #dcfce7;
+        color: #15803d;
+    }
+</style>
+
+<div class="agendamentos-container">
+    <h2>Lista de Agendamentos</h2>
+    <a asp-action="Create" class="btn btn-primary">Novo Agendamento</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Servicos</th>
+                <th>Usuario</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Cliente?.NomeCompleto</td>
+                    <td>@item.Servicos?.Nome</td>
+                    <td>@item.Data</td>
+                    <td>
+                        @{
+                            var badgeClass = item.Estado == EstadoAgendamentos.Cancelada
+                            ? "status-cancelada"
+                            : item.Estado == EstadoAgendamentos.Finalizada
+                            ? "status-finalizada"
+                            : "status-programada";
+                        }
+                        <span class="status-badge @badgeClass">@item.Estado</span>
+                    </td>
+                    <td>
+                        @if (item.Estado != EstadoAgendamentos.Cancelada)
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar</a>
+                            <a asp-action="Cancelar" asp-route-id="@item.Id" class="btn btn-danger">Cancelar</a>
+                        }
+                        else
+                        {
+                            <span class="text-danger">Cancelada</span>
+                        }
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
