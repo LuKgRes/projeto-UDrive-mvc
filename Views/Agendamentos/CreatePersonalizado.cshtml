@@ -1,0 +1,33 @@
+﻿@model Proyecto_Programacion_III.Models.Entidades.AgendamentoPersonalizado
+
+
+<div class="agendamento-container">
+    <form asp-action="CreatePersonalizado" method="post">
+        <h2>Serviço Personalizado</h2>
+
+        <h5>Selecione cliente</h5>
+        <select asp-for="ClienteId" class="form-control" required>
+            <option disabled selected value="">-- Selecione um cliente --</option>
+            @foreach (var item in ViewBag.Clientes)
+            {
+                <option value="@item.ClienteId">@item.NomeCompleto</option>
+            }
+        </select>
+        <span asp-validation-for="ClienteId" class="text-danger"></span>
+
+        <h5>Nome do serviço</h5>
+        <input asp-for="ServicoNome" class="form-control" placeholder="Descreva o problema" />
+        <span asp-validation-for="ServicoNome" class="text-danger"></span>
+
+        <h5>Descrição</h5>
+        <textarea asp-for="ServicoDescricao" class="form-control" placeholder="Descreva o serviço personalizado"></textarea>
+        <span asp-validation-for="ServicoDescricao" class="text-danger"></span>
+
+        <h5>Selecione uma data</h5>
+        <input asp-for="Data" type="datetime-local" class="form-control" />
+        <span asp-validation-for="Data" class="text-danger"></span>
+
+        <br />
+        <button type="submit" class="btn btn-primary">guardar</button>
+    </form>
+</div>

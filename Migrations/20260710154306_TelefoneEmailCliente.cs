@@ -5,18 +5,18 @@
 namespace Proyecto_Programacion_III.Migrations
 {
     /// <inheritdoc />
-    public partial class FixRenameFechaHoraParaData : Migration
+    public partial class TelefoneEmailCliente : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            
+
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-    
+
         }
     }
 }

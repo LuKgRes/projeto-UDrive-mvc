@@ -22,7 +22,7 @@ public class AgendamentosController : Controller
         var Agendamentos = _context.Agendamentos
             .Include(c => c.Cliente)
             .Include(c => c.Servicos)
-            
+
             .AsQueryable();
 
         if (rol == "Usuario" && usuarioId != null)
@@ -120,7 +120,7 @@ public class AgendamentosController : Controller
         {
             AgendamentoDb.ClienteId = Agendamento.ClienteId;
             AgendamentoDb.ServicosId = Agendamento.ServicosId;
-                   AgendamentoDb.Data = Agendamento.Data;
+            AgendamentoDb.Data = Agendamento.Data;
 
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -151,7 +151,7 @@ public class AgendamentosController : Controller
         var Agendamento = await _context.Agendamentos
             .Include(c => c.Cliente)
             .Include(c => c.Servicos)
-       
+
             .FirstOrDefaultAsync(c => c.Id == id);
 
         return View(Agendamento);
@@ -170,4 +170,54 @@ public class AgendamentosController : Controller
 
         return RedirectToAction("Index");
     }
+
+
+    public IActionResult CreatePersonalizado()
+    {
+        ViewBag.Clientes = _context.Clientes.ToList();
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> CreatePersonalizado(AgendamentoPersonalizado model)
+    {
+        if (model.Data < DateTime.Now)
+        {
+            ModelState.AddModelError("Data", "Não se pode agendar Agendamentos em datas passadas");
+        }
+
+        if (ModelState.IsValid)
+        {
+            var novoServico = new Servicos
+            {
+                Nome = model.ServicoNome,
+                Descricao = model.ServicoDescricao,
+                Valor = model.ServicoValor,
+                Tempo = model.Data,
+                Estado = EstadoServicos.Ativo,
+                Personalizado = true
+            };
+
+            _context.Servicos.Add(novoServico);
+            await _context.SaveChangesAsync();
+
+            var agendamento = new Agendamentos
+            {
+                ClienteId = model.ClienteId,
+                ServicosId = novoServico.ServicosId,
+                Data = model.Data,
+                Estado = EstadoAgendamentos.Programada
+            };
+
+            _context.Agendamentos.Add(agendamento);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        ViewBag.Clientes = _context.Clientes.ToList();
+        return View(model);
+    }
+
 }

@@ -12,8 +12,8 @@ using Proyecto_Programacion_III.Data;
 namespace Proyecto_Programacion_III.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20260709220319_CorrecaoBanco")]
-    partial class CorrecaoBanco
+    [Migration("20260710154306_TelefoneEmailCliente")]
+    partial class TelefoneEmailCliente
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,9 @@ namespace Proyecto_Programacion_III.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("DescricaoPersonalizada")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
@@ -44,15 +47,11 @@ namespace Proyecto_Programacion_III.Migrations
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("datetime2");
-
                     b.Property<int?>("ServicosId")
                         .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("UsuarioId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -121,6 +120,9 @@ namespace Proyecto_Programacion_III.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<bool>("Personalizado")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("Tempo")
                         .HasColumnType("datetime2");
 
@@ -131,6 +133,58 @@ namespace Proyecto_Programacion_III.Migrations
                     b.HasKey("ServicosId");
 
                     b.ToTable("Servicos");
+
+                    b.HasData(
+                        new
+                        {
+                            ServicosId = 1,
+                            Descricao = "Troca de óleo do motor",
+                            Estado = 0,
+                            Nome = "Troca de óleo + filtros",
+                            Personalizado = false,
+                            Tempo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Valor = 235.00m
+                        },
+                        new
+                        {
+                            ServicosId = 2,
+                            Descricao = "Troca das pastilhas de freio para manter a eficiência e a segurança da frenagem",
+                            Estado = 0,
+                            Nome = "Troca de pastilhas",
+                            Personalizado = false,
+                            Tempo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Valor = 320.00m
+                        },
+                        new
+                        {
+                            ServicosId = 3,
+                            Descricao = "Ajuste da direção para manter as rodas alinhadas e evitar desgaste irregular",
+                            Estado = 0,
+                            Nome = "Alinhamento",
+                            Personalizado = false,
+                            Tempo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Valor = 140.00m
+                        },
+                        new
+                        {
+                            ServicosId = 4,
+                            Descricao = "Balanceamento das rodas para reduzir vibrações e aumentar a estabilidade",
+                            Estado = 0,
+                            Nome = "Balanceamento",
+                            Personalizado = false,
+                            Tempo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Valor = 100.00m
+                        },
+                        new
+                        {
+                            ServicosId = 5,
+                            Descricao = "Diagnóstico e reparo de componentes mecânicos do veículo",
+                            Estado = 0,
+                            Nome = "Geral",
+                            Personalizado = false,
+                            Tempo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Valor = 320.00m
+                        });
                 });
 
             modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Usuario", b =>
@@ -182,17 +236,13 @@ namespace Proyecto_Programacion_III.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Proyecto_Programacion_III.Models.Entidades.Usuario", "Usuario")
+                    b.HasOne("Proyecto_Programacion_III.Models.Entidades.Usuario", null)
                         .WithMany("Agendamentos")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UsuarioId");
 
                     b.Navigation("Cliente");
 
                     b.Navigation("Servicos");
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Cliente", b =>

@@ -18,8 +18,8 @@ namespace Proyecto_Programacion_III.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Identificacion = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     NomeCompleto = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Telefono = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Correo = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
