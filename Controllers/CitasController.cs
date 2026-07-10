@@ -48,9 +48,9 @@ public class AgendamentosController : Controller
     {
         Agendamento.Estado = EstadoAgendamentos.Programada;
 
-        if (Agendamento.FechaHora < DateTime.Now)
+        if (Agendamento.Data < DateTime.Now)
         {
-            ModelState.AddModelError("FechaHora", "No se pueden agendar Agendamentos en fechas pasadas");
+            ModelState.AddModelError("Data", "No se pueden agendar Agendamentos en fechas pasadas");
         }
         var Servicos = _context.Servicos
         .FirstOrDefault(s => s.ServicosId == Agendamento.ServicosId);
@@ -103,9 +103,9 @@ public class AgendamentosController : Controller
             ModelState.AddModelError("", "No se puede editar una Agendamento cancelada");
         }
 
-        if (Agendamento.FechaHora < DateTime.Now)
+        if (Agendamento.Data < DateTime.Now)
         {
-            ModelState.AddModelError("FechaHora", "No se pueden usar fechas pasadas");
+            ModelState.AddModelError("Data", "No se pueden usar fechas pasadas");
         }
 
         var Servicos = _context.Servicos
@@ -120,7 +120,7 @@ public class AgendamentosController : Controller
         {
             AgendamentoDb.ClienteId = Agendamento.ClienteId;
             AgendamentoDb.ServicosId = Agendamento.ServicosId;
-                   AgendamentoDb.FechaHora = Agendamento.FechaHora;
+                   AgendamentoDb.Data = Agendamento.Data;
 
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");

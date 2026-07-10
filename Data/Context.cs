@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Proyecto_Programacion_III.Models.Entidades;
+using Proyecto_Programacion_III.Models;
+
 
 namespace Proyecto_Programacion_III.Data
 {
@@ -47,6 +49,15 @@ namespace Proyecto_Programacion_III.Data
                 .HasOne(a => a.Servicos)
                 .WithMany(s => s.Agendamentos)
                 .HasForeignKey(a => a.ServicosId);
+
+            modelBuilder.Entity<Servicos>().HasData(
+         new Servicos { ServicosId = 1, Nome = "Troca de óleo + filtros", Descricao = "Troca de óleo do motor", Valor = 235.00m, Personalizado = false },
+         new Servicos { ServicosId = 2, Nome = "Troca de pastilhas", Descricao = "Troca das pastilhas de freio para manter a eficiência e a segurança da frenagem", Valor = 320.00m, Personalizado = false },
+         new Servicos { ServicosId = 3, Nome = "Alinhamento",Descricao = "Ajuste da direção para manter as rodas alinhadas e evitar desgaste irregular", Valor = 140.00m, Personalizado = false },
+         new Servicos { ServicosId = 4, Nome = "Balanceamento", Descricao = "Balanceamento das rodas para reduzir vibrações e aumentar a estabilidade", Valor = 100.00m, Personalizado = false },
+         new Servicos { ServicosId = 5, Nome = "Geral", Descricao = "Diagnóstico e reparo de componentes mecânicos do veículo", Valor = 320.00m, Personalizado = false }
+            );
+
         }
     }
 }

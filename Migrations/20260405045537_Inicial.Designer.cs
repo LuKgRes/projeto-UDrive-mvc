@@ -39,7 +39,7 @@ namespace Proyecto_Programacion_III.Migrations
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("FechaHora")
+                    b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ServicosId")

@@ -22,10 +22,8 @@ namespace Proyecto_Programacion_III.Models.Entidades
         [StringLength(500)]
         public string? DescricaoPersonalizada { get; set; }
 
-
-
         [Required]
-        public DateTime FechaHora { get; set; }
+        public DateTime Data { get; set; }
 
         [Required]
         public EstadoAgendamentos Estado { get; set; }

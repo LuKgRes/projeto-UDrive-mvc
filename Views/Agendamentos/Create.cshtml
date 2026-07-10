@@ -1,12 +1,12 @@
 ﻿@model Proyecto_Programacion_III.Models.Entidades.Agendamentos 
 
 <form asp-action="Create" method="post">
-    <h2>Creacion de Agendamento</h2>
+    <h2>Agendamento de serviço</h2>
     <br />
  
     <h5>Seleccione cliente</h5>
     <select asp-for="ClienteId" class="form-control" required>
-        <option disabled selected value="">-- Seleccione Cliente --</option>
+        <option disabled selected value="">-- Selecione um cliente --</option>
         @foreach (var item in ViewBag.Clientes)
         {
             <option value="@item.ClienteId">@item.NomeCompleto</option>
@@ -17,7 +17,7 @@
 
     <h5>Seleccione Servicos</h5>
     <select asp-for="ServicosId" class="form-control" required>
-        <option disabled selected value="">-- Seleccione Servicos --</option>
+        <option disabled selected value="">-- Selecione um serviço --</option>
         @foreach (var item in ViewBag.Servicoss)
         {
             <option value="@item.ServicosId">@item.Nome</option>
@@ -27,11 +27,12 @@
     <br />
     
     <br />
-    <h5>Seleccione fecha</h5>
-    <input asp-for="FechaHora" type="datetime-local" class="form-control" />
-    <span asp-validation-for="FechaHora" class="text-danger"></span>
+    <h5>Selecione uma data</h5>
+    <input asp-for="Data" type="datetime-local" class="form-control" />
+    <span asp-validation-for="Data" class="text-danger"></span>
     <br />
 
-    <button type="submit" class="btn-primary">Guardar</button>
+    <button type="submit" class="btn-primary">guardar</button>
 
 </form>
+

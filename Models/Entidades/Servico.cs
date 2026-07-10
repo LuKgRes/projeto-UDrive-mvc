@@ -13,6 +13,7 @@ namespace Proyecto_Programacion_III.Models.Entidades
         [StringLength(100)]
         public string Nome { get; set; }
 
+
         [StringLength(300)]
         public string Descricao { get; set; }
 
@@ -28,6 +29,8 @@ namespace Proyecto_Programacion_III.Models.Entidades
         public EstadoServicos Estado { get; set; }
 
         public ICollection<Agendamentos> Agendamentos { get; set; }
+
+        public bool Personalizado { get; set; } = false;
 
         public Servicos()
         {

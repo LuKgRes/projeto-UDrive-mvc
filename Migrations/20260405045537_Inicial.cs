@@ -69,7 +69,7 @@ namespace Proyecto_Programacion_III.Migrations
                     ClienteId = table.Column<int>(type: "int", nullable: false),
                     ServicosId = table.Column<int>(type: "int", nullable: false),
                     UsuarioId = table.Column<int>(type: "int", nullable: false),
-                    FechaHora = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Data = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Estado = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
