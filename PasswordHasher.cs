@@ -1,0 +1,36 @@
+﻿using System.Security.Cryptography;
+
+namespace Proyecto_Programacion_III
+{
+    public static class PasswordHasher
+    {
+        private const int SaltSize = 16;
+        private const int HashSize = 32;
+        private const int Iterations = 100_000;
+
+        public static string Hash(string senha)
+        {
+            byte[] salt = RandomNumberGenerator.GetBytes(SaltSize);
+
+            byte[] hash = Rfc2898DeriveBytes.Pbkdf2(
+                senha, salt, Iterations, HashAlgorithmName.SHA256, HashSize);
+
+            // Guarda salt + hash juntos, separados por ponto, em base64
+            return $"{Convert.ToBase64String(salt)}.{Convert.ToBase64String(hash)}";
+        }
+
+        public static bool Verify(string senha, string senhaHashArmazenada)
+        {
+            var partes = senhaHashArmazenada.Split('.');
+            if (partes.Length != 2) return false;
+
+            byte[] salt = Convert.FromBase64String(partes[0]);
+            byte[] hashArmazenado = Convert.FromBase64String(partes[1]);
+
+            byte[] hashCalculado = Rfc2898DeriveBytes.Pbkdf2(
+                senha, salt, Iterations, HashAlgorithmName.SHA256, HashSize);
+
+            return CryptographicOperations.FixedTimeEquals(hashCalculado, hashArmazenado);
+        }
+    }
+}

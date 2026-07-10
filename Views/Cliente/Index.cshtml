@@ -1,9 +1,109 @@
 ﻿@model IEnumerable<Proyecto_Programacion_III.Models.Entidades.Cliente>
 
+<style>
+    body {
+    background-color: #7b7b7b;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    }
+
+    .container {
+    margin-top: 40px;
+    }
+
+    h2 {
+    margin-bottom: 25px;
+    font-size: 34px;
+    font-weight: 600;
+    color: white;
+    }
+
+    .table {
+    background: #5e5e5e;
+    border-radius: 10px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 8px 20px rgba(0,0,0,.25);
+    }
+
+    .table thead {
+    background: #3d3d3d;
+    }
+
+    .table thead th {
+    color: white;
+    padding: 15px;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+    }
+
+    .table tbody td {
+    padding: 15px;
+    border-top: 1px solid #777;
+    color: white;
+    vertical-align: middle;
+    }
+
+    .table tbody tr {
+    transition: .25s;
+    }
+
+    .table tbody tr:hover {
+    background: #6c6c6c;
+    }
+
+    .btn {
+    border-radius: 8px;
+    font-weight: 500;
+    transition: .2s;
+    }
+
+    .btn-primary {
+    background: #0d6efd;
+    border: none;
+    }
+
+    .btn-primary:hover {
+    background: #0b5ed7;
+    transform: translateY(-2px);
+    }
+
+    .btn-warning {
+    background: #ffc107;
+    color: #000;
+    border: none;
+    }
+
+    .btn-warning:hover {
+    background: #e0a800;
+    }
+
+    .btn-danger {
+    background: #dc3545;
+    border: none;
+    }
+
+    .btn-danger:hover {
+    background: #bb2d3b;
+    }
+
+    td .btn {
+    margin-right: 6px;
+    }
+
+    p {
+    margin-bottom: 20px;
+    }
+</style>
+
+
+
 <h2>Lista de Clientes</h2>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Crear Nuevo Cliente</a>
+    <a asp-action="Create" class="btn btn-primary">Cadastrar novo cliente</a>
 </p>
 
 <table class="table table-bordered">
