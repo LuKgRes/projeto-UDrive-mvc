@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.EntityFrameworkCore;
 using Proyecto_Programacion_III.Models.Entidades.Opciones;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,6 +7,9 @@ namespace Proyecto_Programacion_III.Models.Entidades
 {
     public class AgendamentoPersonalizado
     {
+
+        public int Id { get; set; } 
+
         [Required]
         public int ClienteId { get; set; }
 
@@ -20,6 +24,7 @@ namespace Proyecto_Programacion_III.Models.Entidades
 
         [Required]
         [Range(0.01, 999999)]
+        [Precision(18, 2)]
         [Display(Name = "Valor")]
         public decimal ServicoValor { get; set; }
 
