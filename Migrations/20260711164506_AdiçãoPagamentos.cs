@@ -11,7 +11,7 @@ namespace Proyecto_Programacion_III.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "EstadoPagamento",
+                name: "StatusPagamento",
                 table: "Agendamentos",
                 type: "int",
                 nullable: false,
@@ -22,7 +22,7 @@ namespace Proyecto_Programacion_III.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "EstadoPagamento",
+                name: "StatusPagamento",
                 table: "Agendamentos");
         }
     }

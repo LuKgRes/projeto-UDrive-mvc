@@ -81,7 +81,7 @@ namespace Proyecto_Programacion_III.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<int>("EstadoPagamento")
+                    b.Property<int>("StatusPagamento")
                         .HasColumnType("int");
 
                     b.Property<int?>("UsuarioId")

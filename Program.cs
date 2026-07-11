@@ -23,8 +23,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 var app = builder.Build();
 
-app.UseAuthentication();
-app.UseAuthorization();
+
 
 if (!app.Environment.IsDevelopment())
 {
@@ -57,6 +56,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseSession();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

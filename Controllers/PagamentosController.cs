@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Proyecto_Programacion_III.Data;
 using Proyecto_Programacion_III;
 using Proyecto_Programacion_III.Models.Entidades.Opciones;
+using Microsoft.EntityFrameworkCore;
 
 namespace Proyecto_Programacion_III.Controllers
 {
@@ -27,12 +28,12 @@ namespace Proyecto_Programacion_III.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AlterarStatus(int id, EstadoPagamento novoStatus)
+        public async Task<IActionResult> AlterarStatus(int id, StatusPagamento novoStatus)
         {
             var agendamento = await _context.Agendamentos.FindAsync(id);
             if (agendamento == null) return NotFound();
 
-            agendamento.EstadoPagamento = novoStatus;
+            agendamento.StatusPagamento = novoStatus;
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");

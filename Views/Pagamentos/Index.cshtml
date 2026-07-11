@@ -1,40 +1,156 @@
 ﻿@model IEnumerable<Proyecto_Programacion_III.Models.Entidades.Agendamentos>
+@using Proyecto_Programacion_III.Models.Entidades.Opciones
 
-<h2>Pagamentos</h2>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Cliente</th>
-            <th>Serviço</th>
-            <th>Data</th>
-            <th>Status Pagamento</th>
-            <th>Ação</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Cliente?.NomeCompleto</td>
-                <td>@item.Servicos?.Nome</td>
-                <td>@item.Data.ToString("dd/MM/yyyy HH:mm")</td>
-                <td>
-                    <span class="btn btn-sm @(item.EstadoPagamento == EstadoPagamento.Pago ? "btn-success" : "btn-warning")" style="cursor:default;">
-                        @item.EstadoPagamento
-                    </span>
-                </td>
-                <td>
-                    <form asp-action="AlterarStatus" method="post">
-                        <input type="hidden" name="id" value="@item.Id" />
-                        <input type="hidden" name="novoStatus"
-                               value="@(item.EstadoPagamento == EstadoPagamento.Pago ? EstadoPagamento.Pendente : EstadoPagamento.Pago)" />
-                        <button type="submit" class="btn btn-sm btn-primary">
-                            Marcar como @(item.EstadoPagamento == EstadoPagamento.Pago ? "Pendente" : "Pago")
-                        </button>
-                    </form>
-                </td>
-            </tr>
+<style>
+    body {
+        background: #808080;
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    .page-title {
+        color: white;
+        font-weight: 700;
+        margin: 30px 0 25px;
+    }
+
+    .table-pagamentos {
+        width: 100%;
+        border-collapse: collapse;
+        background: #5f5f5f;
+        color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0,0,0,.2);
+    }
+
+        .table-pagamentos thead {
+            background: #3d3d3d;
         }
-    </tbody>
-</table>
+
+        .table-pagamentos th {
+            padding: 16px;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .table-pagamentos td {
+            padding: 16px;
+            border-top: 1px solid #777;
+            vertical-align: middle;
+        }
+
+        .table-pagamentos tbody tr:hover {
+            background: #707070;
+        }
+
+    .status {
+        display: inline-block;
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .status-pendente {
+        background: #ffc107;
+        color: #000;
+    }
+
+    .status-pago {
+        background: #198754;
+        color: white;
+    }
+
+    .btn-acao {
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-weight: 600;
+        transition: .2s;
+    }
+
+        .btn-acao:hover {
+            transform: translateY(-2px);
+        }
+
+    .container-pagamentos {
+        margin-top: 30px;
+    }
+</style>
+
+<div class="container container-pagamentos">
+
+    <h2 class="page-title">Pagamentos</h2>
+
+    <table class="table-pagamentos">
+
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Serviço</th>
+                <th>Data</th>
+                <th>Status</th>
+                <th width="170">Ação</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@item.Cliente?.NomeCompleto</td>
+
+                    <td>@item.Servicos?.Nome</td>
+
+                    <td>@item.Data.ToString("dd/MM/yyyy HH:mm")</td>
+
+                    <td>
+
+                        @if (item.StatusPagamento == StatusPagamento.Pago)
+                        {
+                            <span class="status status-pago">
+                                Pago
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="status status-pendente">
+                                Pendente
+                            </span>
+                        }
+
+                </td>
+
+                <td>
+
+                    <form asp-action="AlterarStatus" method="post">
+
+                        <input type="hidden" name="id" value="@item.Id" />
+
+                        <input type="hidden"
+                               name="novoStatus"
+                               value="@(item.StatusPagamento == StatusPagamento.Pago ? StatusPagamento.Pendente : StatusPagamento.Pago)" />
+
+                        <button class="btn btn-primary btn-acao">
+
+                            @(item.StatusPagamento == StatusPagamento.Pago
+                                                        ? "Marcar como Pendente"
+                                                        : "Marcar como Pago")
+
+                        </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+                        }
+
+        </tbody>
+
+    </table>
+
+</div>
