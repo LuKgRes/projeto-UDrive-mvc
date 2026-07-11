@@ -4,6 +4,8 @@ namespace Proyecto_Programacion_III.Models.Entidades
 {
     public class UsuarioCadastro
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Informe o nome")]
         public string Nome { get; set; }
 

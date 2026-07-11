@@ -26,10 +26,10 @@
             <i class="bi bi-house"></i>
         </a>
 
-        @if (rol == "Administrador")
+        @if (User.IsInRole("Administrador"))
         {
             <a asp-controller="Usuarios" asp-action="Index">
-                <span>Usuários</span>
+                <span>Usúarios</span>
                 <i class="bi bi-person"></i>
             </a>
 
@@ -49,7 +49,7 @@
             </a>
         }
 
-        @if (rol == "Usuario")
+        @if (User.IsInRole("Cliente"))
         {
             <a asp-controller="Agendamentos" asp-action="Index">
                 <span>Agenda</span>
@@ -59,6 +59,19 @@
             <a asp-controller="Cliente" asp-action="Index">
                 <span>Clientes</span>
                 <i class="bi bi-people"></i>
+            </a>
+        }
+
+        @if (User.IsInRole("Mecanico"))
+        {
+            <a asp-controller="Agendamentos" asp-action="Index">
+                <span>Agenda</span>
+                <i class="bi bi-calendar"></i>
+            </a>
+
+            <a asp-controller="Servicos" asp-action="Index">
+                <span>Serviços</span>
+                <i class="bi bi-tools"></i>
             </a>
         }
 

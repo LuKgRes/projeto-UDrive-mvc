@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Proyecto_Programacion_III.Data;
 
@@ -10,7 +11,17 @@ builder.Services.AddDbContext<Context>(options =>
 
 builder.Services.AddSession();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AcessoNegado";
+    });
+
 var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 if (!app.Environment.IsDevelopment())
 {

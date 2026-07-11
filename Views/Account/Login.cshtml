@@ -1,0 +1,117 @@
+﻿
+@model Proyecto_Programacion_III.Models.LoginViewModel
+
+<style>
+    :root {
+        --bg: #808080;
+        --card: #5f5f5f;
+        --header: #3d3d3d;
+        --primary: #0d6efd;
+        --primary-hover: #0b5ed7;
+        --danger: #dc3545;
+        --text: #ffffff;
+        --text-secondary: #d8d8d8;
+    }
+
+    body {
+        margin: 0;
+        background: var(--bg);
+        font-family: 'Segoe UI',sans-serif;
+    }
+
+    .login-container {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-card {
+        width: 430px;
+        background: var(--card);
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,.25);
+        padding: 40px;
+        color: white;
+    }
+
+        .login-card h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 40px;
+        }
+
+        .login-card label {
+            font-weight: 600;
+            color: white;
+            margin-bottom: 6px;
+        }
+
+        .login-card .form-control {
+            background: #ececec;
+            border: none;
+            border-radius: 8px;
+            height: 48px;
+            margin-bottom: 18px;
+        }
+
+            .login-card .form-control:focus {
+                box-shadow: 0 0 0 .2rem rgba(13,110,253,.25);
+            }
+
+        .login-card .btn {
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+    .btn-primary {
+        background: #0d6efd;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background: #0b5ed7;
+        }
+
+    .btn-outline-secondary {
+        border: 1px solid #d0d0d0;
+        color: white;
+    }
+
+        .btn-outline-secondary:hover {
+            background: #6c757d;
+            color: white;
+        }
+</style>
+
+<div class="login-container">
+    <div class="login-card">
+        <h1>Entrar no sistema</h1>
+        <div>
+            <form asp-action="Login" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="margin-top:15px;">
+                    <label asp-for="Password">Senha</label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary">Entrar</button>
+                <a asp-controller="Account" asp-action="Cadastro" class="btn btn-outline-secondary">Criar conta</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

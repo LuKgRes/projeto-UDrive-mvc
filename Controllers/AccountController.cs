@@ -51,7 +51,16 @@ namespace Proyecto_Programacion_III.Controllers
             };
 
             _context.Usuarios.Add(usuario);
-            await _context.SaveChangesAsync();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError("Email", "Este e-mail já está cadastrado.");
+                return View(model);
+            }
 
             return RedirectToAction("Login");
         }
