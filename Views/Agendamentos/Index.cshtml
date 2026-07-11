@@ -152,16 +152,22 @@
                         <span class="status-badge @badgeClass">@item.Estado</span>
                     </td>
                     <td>
-                        @if (item.Estado != EstadoAgendamentos.Cancelada)
+                        @if (User.IsInRole("Administrador"))
                         {
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar</a>
-                            <a asp-action="Cancelar" asp-route-id="@item.Id" class="btn btn-danger">Cancelar</a>
+                            @if (item.Estado != EstadoAgendamentos.Cancelada)
+                            {
+
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar</a>
+                                <a asp-action="Cancelar" asp-route-id="@item.Id" class="btn btn-danger">Cancelar</a>
+                            }
+                            else
+                            {
+                                <span class="text-danger">Cancelada</span>
+                            }
+
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
                         }
-                        else
-                        {
-                            <span class="text-danger">Cancelada</span>
-                        }
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
+
                     </td>
                 </tr>
             }

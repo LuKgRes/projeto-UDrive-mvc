@@ -4,13 +4,13 @@
 
 <h2>Usuarios</h2>
 
-<a asp-action="Create" class="btn btn-primary">Crear Usuario</a>
+<a asp-action="Create" class="btn btn-primary">Cadastrar Usuario</a>
 
 <table class="table">
     <thead>
         <tr>
             <th>Email</th>
-            <th>Acciones</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -21,7 +21,7 @@
                 <td>
                     <form asp-action="Delete" method="post">
                         <input type="hidden" name="id" value="@u.Id" />
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <button type="submit" class="btn btn-danger">Deletar</button>
                     </form>
                 </td>
             </tr>

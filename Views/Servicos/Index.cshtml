@@ -4,20 +4,19 @@
     ViewData["Title"] = "Lista de Servicos";
 }
 
-<h2>Lista de Servicos</h2>
+<h2>Lista de Serviços</h2>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Crear Servicos</a>
+    <a asp-action="Create" class="btn btn-primary">Cadastrar Servicos</a>
 </p>
 
 <table class="table table-bordered">
     <thead>
         <tr>
             <th>Nome</th>
-            <th>Duración</th>
             <th>Valor</th>
             <th>Estado</th>
-            <th>Acciones</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -25,12 +24,11 @@
         {
             <tr>
                 <td>@item.Nome</td>
-                <td>@item.Tempo</td>
                 <td>@item.Valor</td>
                 <td>@item.Estado</td>
                 <td>
                   <a asp-action="Edit" asp-route-id="@item.ServicosId" class="btn btn-primary btn-sm">Editar</a>
-                  <a asp-action="Delete" asp-route-id="@item.ServicosId" class="btn btn-primary btn-sm">Eliminar</a>
+                  <a asp-action="Delete" asp-route-id="@item.ServicosId" class="btn btn-primary btn-sm">Deletar</a>
                 </td>
 
             </tr>

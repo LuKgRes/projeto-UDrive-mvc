@@ -50,14 +50,14 @@ public class AgendamentosController : Controller
 
         if (Agendamento.Data < DateTime.Now)
         {
-            ModelState.AddModelError("Data", "No se pueden agendar Agendamentos en fechas pasadas");
+            ModelState.AddModelError("Data", "Não pode agendar para datas passadas.");
         }
         var Servicos = _context.Servicos
         .FirstOrDefault(s => s.ServicosId == Agendamento.ServicosId);
 
         if (Servicos != null && Servicos.Estado == EstadoServicos.Inativo)
         {
-            ModelState.AddModelError("ServicosId", "El Servicos se encuentra Inativo");
+            ModelState.AddModelError("ServicosId", "O serviço está inativo.");
         }
 
         if (ModelState.IsValid)
@@ -100,12 +100,12 @@ public class AgendamentosController : Controller
 
         if (AgendamentoDb.Estado == EstadoAgendamentos.Cancelada)
         {
-            ModelState.AddModelError("", "No se puede editar una Agendamento cancelada");
+            ModelState.AddModelError("", "Não pode editar um agendamento cancelado");
         }
 
         if (Agendamento.Data < DateTime.Now)
         {
-            ModelState.AddModelError("Data", "No se pueden usar fechas pasadas");
+            ModelState.AddModelError("Data", "Não pode usar datas passadas");
         }
 
         var Servicos = _context.Servicos
@@ -113,7 +113,7 @@ public class AgendamentosController : Controller
 
         if (Servicos != null && Servicos.Estado == EstadoServicos.Inativo)
         {
-            ModelState.AddModelError("ServicosId", "Servicos Inativo");
+            ModelState.AddModelError("ServicosId", "Serviços Inativo");
         }
 
         if (ModelState.IsValid)

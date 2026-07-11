@@ -47,6 +47,11 @@
                 <span>Agenda</span>
                 <i class="bi bi-calendar"></i>
             </a>
+
+            <a asp-controller="Pagamentos" asp-action="Index">
+                <span>Pagamentos</span>
+                <i class="bi bi-cash"></i>
+            </a>
         }
 
         @if (User.IsInRole("Cliente"))
@@ -72,6 +77,11 @@
             <a asp-controller="Servicos" asp-action="Index">
                 <span>Serviços</span>
                 <i class="bi bi-tools"></i>
+            </a>
+
+            <a asp-controller="Pagamentos" asp-action="Index">
+                <span>Pagamentos</span>
+                <i class="bi bi-cash"></i>
             </a>
         }
 

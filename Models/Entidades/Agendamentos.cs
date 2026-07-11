@@ -27,5 +27,8 @@ namespace Proyecto_Programacion_III.Models.Entidades
 
         [Required]
         public EstadoAgendamentos Estado { get; set; }
+
+        [Required]
+        public EstadoPagamento EstadoPagamento { get; set; } = EstadoPagamento.Pendente;
     }
 }

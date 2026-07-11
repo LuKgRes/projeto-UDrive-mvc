@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Proyecto_Programacion_III.Data;
+using Proyecto_Programacion_III.Models.Entidades;
+using Proyecto_Programacion_III.Models.Entidades.Opciones;
+using Proyecto_Programacion_III;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +30,25 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<Context>();
+
+    if (!context.Usuarios.Any(u => u.Rol == "Administrador"))
+    {
+        context.Usuarios.Add(new Usuario
+        {
+            Nome = "Administrador",
+            Email = "admin@udrive.com.br",
+            Password = PasswordHasher.Hash("Admin123!"), 
+            Rol = "Administrador",
+            Estado = EstadoUsuario.Activo
+        });
+
+        context.SaveChanges();
+    }
 }
 
 app.UseHttpsRedirection();
