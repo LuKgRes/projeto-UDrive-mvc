@@ -1,104 +1,198 @@
 ﻿@model Proyecto_Programacion_III.Models.Entidades.Agendamentos
 
 <style>
-    .agendamento-container {
-        max-width: 600px;
-        margin: 40px auto;
-        background-color: #ffffff;
-        padding: 32px 40px;
-        border-radius: 12px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    .card-form {
+        max-width: 850px;
+        margin: 30px auto;
+        background: #3f3f3f;
+        border-radius: 14px;
+        box-shadow: 0 10px 25px rgba(0,0,0,.35);
+        padding: 35px;
     }
 
-    .agendamento-container h2 {
-        font-size: 1.6rem;
+    .titulo-pagina {
+        color: #fff;
+        font-size: 38px;
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
+
+    .subtitulo {
+        color: #fff;
+        margin: 25px 0 15px;
+    }
+
+    .form-dark label {
+        color: #fff;
         font-weight: 600;
-        color: #1e1e2f;
-        margin-bottom: 24px;
-    }
-
-    .agendamento-container h5 {
-        font-size: 0.9rem;
-        font-weight: 500;
-        color: #444;
         margin-bottom: 8px;
-        margin-top: 20px;
     }
 
     .form-control {
-        width: 100%;
-        padding: 10px 14px;
-        border: 1px solid #d1d5db;
+        background: #5e5e5e;
+        border: 1px solid #6d6d6d;
+        color: white;
         border-radius: 8px;
-        font-size: 0.95rem;
-        transition: border-color 0.2s, box-shadow 0.2s;
-        background-color: #fafafa;
+        height: 46px;
     }
 
-    .form-control:focus {
-        outline: none;
-        border-color: #2563eb;
-        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-        background-color: #fff;
-    }
+        .form-control:focus {
+            background: #666;
+            color: white;
+            border-color: #2AB5E4;
+            box-shadow: 0 0 0 .2rem rgba(42,181,228,.25);
+        }
 
-    .text-danger {
-        font-size: 0.8rem;
-        color: #dc2626;
+        .form-control option {
+            background: #5e5e5e;
+            color: white;
+        }
+
+    .botoes {
+        display: flex;
+        gap: 12px;
+        margin-top: 30px;
     }
 
     .btn-primary {
-        margin-top: 28px;
-        padding: 10px 28px;
-        background-color: #2563eb;
-        color: #fff;
+        background: #2AB5E4;
         border: none;
         border-radius: 8px;
-        font-size: 0.95rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: background-color 0.2s, transform 0.1s;
+        padding: 10px 28px;
+        font-weight: 600;
     }
 
-    .btn-primary:hover {
-        background-color: #1d4ed8;
+        .btn-primary:hover {
+            background: #1d9fc9;
+        }
+
+    .btn-secondary {
+        background: #6b6b6b;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 28px;
     }
 
-    .btn-primary:active {
-        transform: scale(0.98);
+        .btn-secondary:hover {
+            background: #5a5a5a;
+        }
+
+    #novoVeiculoFields {
+        margin: 25px 0;
+        padding: 20px;
+        background: #4b4b4b;
+        border-radius: 10px;
     }
 </style>
 
-<div class="agendamento-container">
-    <form asp-action="Create" method="post">
-        <h2>Agendamento de serviço</h2>
+<div class="container py-4">
+    <div class="card-form">
 
-        <h5>Seleccione cliente</h5>
-        <select asp-for="ClienteId" class="form-control" required>
-            <option disabled selected value="">-- Selecione um cliente --</option>
-            @foreach (var item in ViewBag.Clientes)
-            {
-                <option value="@item.ClienteId">@item.NomeCompleto</option>
-            }
-        </select>
-        <span asp-validation-for="ClienteId" class="text-danger"></span>
+        <h2 class="titulo-pagina">Agendamento de Serviço</h2>
 
-        <h5>Seleccione Servicos</h5>
-        <select asp-for="ServicosId" class="form-control" required>
-            <option disabled selected value="">-- Selecione um serviço --</option>
-            @foreach (var item in ViewBag.Servicos)
-            {
-                <option value="@item.ServicosId">@item.Nome</option>
-            }
-        </select>
-        <span asp-validation-for="ServicosId" class="text-danger"></span>
+        <form asp-action="Create" method="post" class="form-dark">
 
-        <h5>Selecione uma data</h5>
-        <input asp-for="Data" type="datetime-local" class="form-control" />
-        <span asp-validation-for="Data" class="text-danger"></span>
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
-        <br />
-        <button type="submit" class="btn-primary">guardar</button>
-        <a asp-action="Index" class="btn btn-primary">Voltar</a>
-    </form>
+            <div class="mb-3">
+                <label>Selecione o cliente</label>
+
+                <select asp-for="ClienteId" class="form-control">
+                    <option disabled selected value="">-- Selecione um cliente --</option>
+                    @foreach (var item in ViewBag.Clientes)
+                    {
+                        <option value="@item.ClienteId">@item.NomeCompleto</option>
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label>Selecione o veículo</label>
+
+                <select id="veiculoSelect"
+                        name="VeiculoSelecionado"
+                        class="form-control">
+
+                    <option value="">-- Selecione um veículo --</option>
+
+                    @foreach (var item in ViewBag.Veiculos)
+                    {
+                        <option value="@item.VeiculoId">
+                            @item.Modelo - @item.Placa
+                        </option>
+                    }
+
+                    <option value="novo">
+                        + Cadastrar novo veículo
+                    </option>
+
+                </select>
+            </div>
+
+            <div id="novoVeiculoFields" style="display:none">
+
+                <h4 class="subtitulo">Novo veículo</h4>
+
+                <input name="NovoVeiculoModelo" class="form-control mb-2" placeholder="Modelo">
+
+                <input name="NovoVeiculoPlaca" class="form-control mb-2" placeholder="Placa">
+
+                <input name="NovoVeiculoMarca" class="form-control mb-2" placeholder="Marca">
+
+                <input name="NovoVeiculoCor" class="form-control mb-2" placeholder="Cor">
+
+                <input name="NovoVeiculoAno" class="form-control" type="number" placeholder="Ano">
+
+            </div>
+
+            <div class="mb-3">
+                <label>Selecione o serviço</label>
+
+                <select asp-for="ServicosId" class="form-control">
+
+                    <option disabled selected value="">
+                        -- Selecione um serviço --
+                    </option>
+
+                    @foreach (var item in ViewBag.Servicos)
+                    {
+                        <option value="@item.ServicosId">@item.Nome</option>
+                    }
+
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label>Data do agendamento</label>
+
+                <input asp-for="Data"
+                       type="datetime-local"
+                       class="form-control" />
+            </div>
+
+            <div class="botoes">
+
+                <button class="btn btn-primary">
+                    Salvar
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Voltar
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
 </div>
+
+<script>
+    const veiculoSelect = document.getElementById('veiculoSelect');
+    const novoVeiculoFields = document.getElementById('novoVeiculoFields');
+
+    veiculoSelect.addEventListener('change', function () {
+        novoVeiculoFields.style.display = this.value === 'novo' ? 'block' : 'none';
+    });
+</script>

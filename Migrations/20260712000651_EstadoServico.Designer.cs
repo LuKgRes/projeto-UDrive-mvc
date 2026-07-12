@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Proyecto_Programacion_III.Data;
 
@@ -11,9 +12,11 @@ using Proyecto_Programacion_III.Data;
 namespace Proyecto_Programacion_III.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20260712000651_EstadoServico")]
+    partial class EstadoServico
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,9 +90,6 @@ namespace Proyecto_Programacion_III.Migrations
                     b.Property<int?>("UsuarioId")
                         .HasColumnType("int");
 
-                    b.Property<int>("VeiculoId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
@@ -97,8 +97,6 @@ namespace Proyecto_Programacion_III.Migrations
                     b.HasIndex("ServicosId");
 
                     b.HasIndex("UsuarioId");
-
-                    b.HasIndex("VeiculoId");
 
                     b.ToTable("Agendamentos");
                 });
@@ -268,47 +266,6 @@ namespace Proyecto_Programacion_III.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Veiculo", b =>
-                {
-                    b.Property<int>("VeiculoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VeiculoId"));
-
-                    b.Property<int?>("Ano")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Cor")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Marca")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Modelo")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Placa")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.HasKey("VeiculoId");
-
-                    b.HasIndex("ClienteId");
-
-                    b.ToTable("Veiculos");
-                });
-
             modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Agendamentos", b =>
                 {
                     b.HasOne("Proyecto_Programacion_III.Models.Entidades.Cliente", "Cliente")
@@ -327,28 +284,9 @@ namespace Proyecto_Programacion_III.Migrations
                         .WithMany("Agendamentos")
                         .HasForeignKey("UsuarioId");
 
-                    b.HasOne("Proyecto_Programacion_III.Models.Entidades.Veiculo", "Veiculo")
-                        .WithMany()
-                        .HasForeignKey("VeiculoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Cliente");
 
                     b.Navigation("Servicos");
-
-                    b.Navigation("Veiculo");
-                });
-
-            modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Veiculo", b =>
-                {
-                    b.HasOne("Proyecto_Programacion_III.Models.Entidades.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cliente");
                 });
 
             modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Cliente", b =>

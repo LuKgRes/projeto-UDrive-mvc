@@ -9,7 +9,7 @@ namespace Proyecto_Programacion_III.Models.Entidades
         public int Id { get; set; }
 
         [Required]
-        public int? ClienteId { get; set; }
+        public int ClienteId { get; set; }
         [ValidateNever]
         public Cliente Cliente { get; set; }
 
@@ -18,7 +18,9 @@ namespace Proyecto_Programacion_III.Models.Entidades
         [ValidateNever]
         public Servicos Servicos { get; set; }
 
-        
+        public int VeiculoId { get; set; }
+        public Veiculo Veiculo { get; set; }
+
         [StringLength(500)]
         public string? DescricaoPersonalizada { get; set; }
 

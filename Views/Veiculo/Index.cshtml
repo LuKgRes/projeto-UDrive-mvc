@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Proyecto_Programacion_III.Models.Entidades.Veiculo>
+
+<h1>Veículos</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">+ Novo Veículo</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Modelo</th>
+            <th>Placa</th>
+            <th>Cor</th>
+            <th>Marca</th>
+            <th>Ano</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Cliente.NomeCompleto</td>
+                <td>@item.Modelo</td>
+                <td>@item.Placa</td>
+                <td>@item.Cor</td>
+                <td>@item.Marca</td>
+                <td>@item.Ano</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.VeiculoId">Detalhes</a> |
+                    <a asp-action="Edit" asp-route-id="@item.VeiculoId">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.VeiculoId">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

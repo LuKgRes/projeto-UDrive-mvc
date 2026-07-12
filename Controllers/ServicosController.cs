@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Proyecto_Programacion_III.Data;
 using Proyecto_Programacion_III.Models.Entidades;
+using Proyecto_Programacion_III.Models.Entidades.Opciones;
 
 public class ServicosController : Controller
 {
@@ -26,6 +27,8 @@ public class ServicosController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(Servicos Servicos)
     {
+        Servicos.Estado = EstadoServicos.Ativo;
+
         if (ModelState.IsValid)
         {
             _context.Add(Servicos);

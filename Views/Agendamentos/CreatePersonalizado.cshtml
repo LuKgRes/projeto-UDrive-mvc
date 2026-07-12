@@ -3,6 +3,7 @@
 
 <div class="agendamento-container">
     <form asp-action="CreatePersonalizado" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
         <h2>Serviço Personalizado</h2>
 
         <h5>Selecione cliente</h5>
@@ -15,12 +16,38 @@
         </select>
         <span asp-validation-for="ClienteId" class="text-danger"></span>
 
-        <h5>Nome do serviço</h5>
-        <input asp-for="ServicoNome" class="form-control" placeholder="Descreva o problema" />
-        <span asp-validation-for="ServicoNome" class="text-danger"></span>
+        <h5>Seleccione o veículo</h5>
+        <select id="veiculoSelect" name="VeiculoSelecionado" class="form-control">
+            <option value="" selected>-- Selecione um veículo --</option>
+            @foreach (var item in ViewBag.Veiculos)
+            {
+                <option value="@item.VeiculoId">@item.Modelo - @item.Placa</option>
+            }
+            <option value="novo">+ Cadastrar novo veículo</option>
+        </select>
+        <span id="veiculoValidationSpan" class="text-danger"></span>
+
+        <div id="novoVeiculoFields" style="display:none;">
+            <h5>Dados do novo veículo</h5>
+
+            <label>Modelo</label>
+            <input name="NovoVeiculoModelo" class="form-control" />
+
+            <label>Placa</label>
+            <input name="NovoVeiculoPlaca" class="form-control" />
+
+            <label>Marca</label>
+            <input name="NovoVeiculoMarca" class="form-control" />
+
+            <label>Cor</label>
+            <input name="NovoVeiculoCor" class="form-control" />
+
+            <label>Ano</label>
+            <input name="NovoVeiculoAno" class="form-control" type="number" />
+        </div>
 
         <h5>Descrição</h5>
-        <textarea asp-for="ServicoDescricao" class="form-control" placeholder="Descreva o serviço personalizado"></textarea>
+        <textarea asp-for="ServicoDescricao" class="form-control" placeholder="Descreva o problema ou o serviço a ser feito"></textarea>
         <span asp-validation-for="ServicoDescricao" class="text-danger"></span>
 
         <h5>Selecione uma data</h5>
@@ -32,3 +59,11 @@
         <a asp-action="Index" class="btn btn-primary">Voltar</a>
     </form>
 </div>
+
+<script>
+    const veiculoSelect = document.getElementById('veiculoSelect');
+    const novoVeiculoFields = document.getElementById('novoVeiculoFields');
+    veiculoSelect.addEventListener('change', function () {
+        novoVeiculoFields.style.display = this.value === 'novo' ? 'block' : 'none';
+    });
+</script>

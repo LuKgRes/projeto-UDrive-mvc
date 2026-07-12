@@ -30,6 +30,8 @@ namespace Proyecto_Programacion_III.Models.Entidades
 
         public ICollection<Agendamentos> Agendamentos { get; set; }
 
+        public EstadoServicos EstadoServicos { get; set; } = EstadoServicos.Ativo;
+
         public bool Personalizado { get; set; } = false;
 
         public Servicos()

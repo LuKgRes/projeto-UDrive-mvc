@@ -18,7 +18,8 @@ namespace Proyecto_Programacion_III.Data
         public DbSet<Agendamentos> Agendamentos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<AgendamentoPersonalizado> AgendamentoPersonalizados { get; set; }
-        
+        public DbSet<Veiculo> Veiculos { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
