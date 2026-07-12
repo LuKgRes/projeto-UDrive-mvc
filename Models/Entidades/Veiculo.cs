@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Proyecto_Programacion_III.Models.Entidades
 {
@@ -8,6 +10,9 @@ namespace Proyecto_Programacion_III.Models.Entidades
 
         [Required]
         public int ClienteId { get; set; }
+
+        [ForeignKey("ClienteId")]
+        [ValidateNever]
         public Cliente Cliente { get; set; }
 
         [Required]

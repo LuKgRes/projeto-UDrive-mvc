@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Proyecto_Programacion_III.Models.Entidades
 {
@@ -7,6 +8,13 @@ namespace Proyecto_Programacion_III.Models.Entidades
     {
         [Key]
         public int ClienteId { get; set; }
+
+        [Required]
+        public int UsuarioId { get; set; }
+
+        [ForeignKey("UsuarioId")]
+        [ValidateNever]
+        public Usuario Usuario { get; set; }
 
         [Required]
         [StringLength(20)]

@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Proyecto_Programacion_III.Data;
 using Proyecto_Programacion_III.Models;
 using Proyecto_Programacion_III.Models.Entidades.Opciones;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace Proyecto_Programacion_III.Controllers
 {
@@ -17,9 +19,23 @@ namespace Proyecto_Programacion_III.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var rol = User.FindFirstValue(ClaimTypes.Role);
+            var usuarioIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var Agendamentos = _context.Agendamentos
+                .Include(c => c.Cliente)
+                .Include(c => c.Servicos)
+                .AsQueryable();
+
+            if (rol == "Cliente" && usuarioIdStr != null)
+            {
+                int id = int.Parse(usuarioIdStr);
+                Agendamentos = Agendamentos.Where(a => a.Cliente.UsuarioId == id);
+            }
+
+            return View(await Agendamentos.ToListAsync());
         }
 
 

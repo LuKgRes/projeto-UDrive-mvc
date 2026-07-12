@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Proyecto_Programacion_III.Data;
 using Proyecto_Programacion_III.Models.Entidades;
 using Proyecto_Programacion_III.Models.Entidades.Opciones;
+using System.Security.Claims;
 
 public class AgendamentosController : Controller
 {
@@ -16,19 +17,19 @@ public class AgendamentosController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var rol = HttpContext.Session.GetString("Rol");
-        var usuarioId = HttpContext.Session.GetString("UsuarioId");
+        var rol = User.FindFirstValue(ClaimTypes.Role);
+        var usuarioIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
 
         var Agendamentos = _context.Agendamentos
             .Include(c => c.Cliente)
             .Include(c => c.Servicos)
-
             .AsQueryable();
 
-        if (rol == "Usuario" && usuarioId != null)
+        if (rol == "Cliente" && usuarioIdStr != null)
         {
-            int id = int.Parse(usuarioId);
-            Agendamentos = Agendamentos.Where(c => c.ClienteId == id);
+            int id = int.Parse(usuarioIdStr);
+            Agendamentos = Agendamentos.Where(a => a.Cliente.UsuarioId == id);
         }
 
         return View(await Agendamentos.ToListAsync());
@@ -36,10 +37,24 @@ public class AgendamentosController : Controller
 
     public IActionResult Create()
     {
-        ViewBag.Clientes = _context.Clientes.ToList();
+        var rol = User.FindFirstValue(ClaimTypes.Role);
+        var usuarioIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        var clientesQuery = _context.Clientes.AsQueryable();
+        var veiculosQuery = _context.Veiculos.AsQueryable();
+
+        if (rol == "Cliente" && usuarioIdStr != null)
+        {
+            int id = int.Parse(usuarioIdStr);
+            clientesQuery = clientesQuery.Where(c => c.UsuarioId == id);
+            veiculosQuery = veiculosQuery.Where(v => clientesQuery.Select(c => c.ClienteId).Contains(v.ClienteId));
+        }
+
+        ViewBag.Clientes = clientesQuery.ToList();
+        ViewBag.Veiculos = veiculosQuery.ToList();
         ViewBag.Servicos = _context.Servicos.ToList();
         ViewBag.Usuarios = _context.Usuarios.ToList();
-        ViewBag.Veiculos = _context.Veiculos.ToList();
+
         return View();
     }
 
@@ -69,6 +84,15 @@ public class AgendamentosController : Controller
             ModelState.AddModelError("ServicosId", "O serviço está inativo.");
         }
 
+        var usuarioId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        var clientePertenceAoUsuario = await _context.Clientes
+            .AnyAsync(c => c.ClienteId == Agendamento.ClienteId && c.UsuarioId == usuarioId);
+
+        if (!clientePertenceAoUsuario)
+        {
+            ModelState.AddModelError("ClienteId", "Cliente inválido.");
+        }
 
         bool isNovoVeiculo = VeiculoSelecionado == "novo";
 
@@ -211,8 +235,22 @@ public class AgendamentosController : Controller
 
     public IActionResult CreatePersonalizado()
     {
-        ViewBag.Veiculos = _context.Veiculos.ToList();
-        ViewBag.Clientes = _context.Clientes.ToList();
+        var rol = User.FindFirstValue(ClaimTypes.Role);
+        var usuarioIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        var clientesQuery = _context.Clientes.AsQueryable();
+        var veiculosQuery = _context.Veiculos.AsQueryable();
+
+        if (rol == "Cliente" && usuarioIdStr != null)
+        {
+            int id = int.Parse(usuarioIdStr);
+            clientesQuery = clientesQuery.Where(c => c.UsuarioId == id);
+            veiculosQuery = veiculosQuery.Where(v => v.ClienteId != null && clientesQuery.Select(c => c.ClienteId).Contains(v.ClienteId));
+        }
+
+        ViewBag.Clientes = clientesQuery.ToList();
+        ViewBag.Veiculos = veiculosQuery.ToList();
+
         return View();
     }
 

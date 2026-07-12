@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Proyecto_Programacion_III.Data;
 using Proyecto_Programacion_III.Models.Entidades;
+using System.Security.Claims;
 
 public class ClienteController : Controller
 {
@@ -14,7 +15,12 @@ public class ClienteController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var clientes = await _context.Clientes.ToListAsync();
+        var usuarioId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        var clientes = await _context.Clientes
+            .Where(c => c.UsuarioId == usuarioId)
+            .ToListAsync();
+
         return View(clientes);
     }
 
@@ -33,6 +39,18 @@ public class ClienteController : Controller
             {
                 Console.WriteLine(error.ErrorMessage);
             }
+        }
+
+        var usuarioId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        cliente.UsuarioId = usuarioId;
+
+        if (!ModelState.IsValid)
+        {
+            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                Console.WriteLine(error.ErrorMessage);
+            }
+            return View(cliente);
         }
 
         if (ModelState.IsValid)

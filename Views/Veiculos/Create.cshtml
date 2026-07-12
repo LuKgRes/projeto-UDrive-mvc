@@ -8,7 +8,13 @@
 
     <div class="form-group">
         <label asp-for="ClienteId" class="control-label">Cliente</label>
-        <select asp-for="ClienteId" class="form-control" asp-items="ViewBag.ClienteId"></select>
+        <select asp-for="ClienteId" class="form-control">
+            <option value="">-- Selecione um cliente --</option>
+            @foreach (var item in ViewBag.Clientes)
+            {
+                <option value="@item.ClienteId">@item.NomeCompleto</option>
+            }
+        </select>
         <span asp-validation-for="ClienteId" class="text-danger"></span>
     </div>
 
