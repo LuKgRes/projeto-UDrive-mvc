@@ -1,49 +1,163 @@
-﻿<h2>Dashboard Usuario</h2>
+﻿
+<style>
+    body {
+        background-color: #7b7b7b;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: white;
+    }
+
+    h2 {
+        color: white;
+        font-size: 34px;
+        font-weight: 600;
+        margin-bottom: 35px;
+    }
+
+    h4 {
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,.25);
+        transition: .25s;
+        margin-bottom: 20px;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h4 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .card h2 {
+            color: white;
+            font-size: 42px;
+            margin: 0;
+        }
+
+    .bg-success {
+        background: #198754 !important;
+    }
+
+    .bg-danger {
+        background: #dc3545 !important;
+    }
+
+    .table {
+        background: #5e5e5e;
+        border-radius: 10px;
+        overflow: hidden;
+        border: none;
+        box-shadow: 0 8px 20px rgba(0,0,0,.25);
+    }
+
+        .table thead {
+            background: #3d3d3d;
+        }
+
+            .table thead th {
+                color: white;
+                border: none;
+                padding: 15px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-size: 14px;
+            }
+
+        .table tbody td {
+            color: white;
+            padding: 15px;
+            border-top: 1px solid #777;
+        }
+
+        .table tbody tr {
+            transition: .25s;
+        }
+
+            .table tbody tr:hover {
+                background: #6c6c6c;
+            }
+</style>
+
+<h2>Dashboard Usuario</h2>
 
 <br />
 
-        <div class="row">
-
-        <div class="col-md-3">
-            <div class="card bg-success text-white p-3">
-               <h4>Agendamentos Activas</h4>
-               <h2>@ViewBag.TotalAgendamentos</h2>
-            </div>
-            </div>
-        
-
-        <br />
-
-        <div class="col-md-3">
-            <div class="card bg-danger text-white p-3">
-                <h4>Canceladas</h4>
-                <h2>@ViewBag.AgendamentosCanceladas</h2>
-            </div>
-        </div>
-        </div>
-
-        <br />
-
-        <div class="mt-3" >
-            <h4>Proximas Agendamentos</h4>
-
-            <table class="table table-striped">
-                <thead>
+@if (ViewBag.Rol == "Mecanico")
+{
+    <div class="mt-4">
+        <h4>Serviços Pendentes</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th>Veículo</th>
+                    <th>Serviço</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.ServicosPendentes)
+                {
                     <tr>
-                        <th>Fecha</th>
+                        <td>@item.Cliente.NomeCompleto</td>
+                        <td>@item.Veiculo.Modelo - @item.Veiculo.Placa</td>
+                        <td>@item.Servicos.Nome</td>
+                        <td>@item.Data.ToString("dd/MM/yyyy HH:mm")</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in ViewBag.Agendamentos)
-                    {
-                        <tr>
-                            <td>@item.Data</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+<div class="row">
+
+    <div class="col-lg-4 col-md-6 mb-3">
+        <div class="card bg-success text-white p-3">
+            <h4>Agendamentos ativos</h4>
+            <h2>@ViewBag.TotalAgendamentos</h2>
         </div>
+    </div>
+
+
+    <br />
+
+    <div class="col-lg-4 col-md-6 mb-3">
+        <div class="card bg-danger text-white p-3">
+            <h4>Agendamentos Cancelados</h4>
+            <h2>@ViewBag.AgendamentosCanceladas</h2>
         </div>
+    </div>
+</div>
+
+<br />
+
+<div class="mt-3">
+    <h4>Proximos Agendamentos</h4>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Agendamentos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Agendamentos)
+            {
+                <tr>
+                    <td>@item.Data</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+</div>
 
 <br />
 <br />

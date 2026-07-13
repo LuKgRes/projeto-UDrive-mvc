@@ -65,16 +65,16 @@ namespace Proyecto_Programacion_III.Controllers
 
 
             var topServicos = _context.Agendamentos
-    .Where(c => !c.Servicos.Personalizado)
-    .GroupBy(c => c.Servicos.Nome)
-    .Select(g => new
-    {
-        Servicos = g.Key,
-        Total = g.Count()
-    })
-    .OrderByDescending(x => x.Total)
-    .Take(3)
-    .ToList();
+                 .Where(c => !c.Servicos.Personalizado)
+                 .GroupBy(c => c.Servicos.Nome)
+                 .Select(g => new
+                 {
+                     Servicos = g.Key,
+                     Total = g.Count()
+                 })
+                     .OrderByDescending(x => x.Total)
+                  .Take(3)
+                 .ToList();
             ViewBag.TopServicos = topServicos;
 
             return View();
@@ -83,21 +83,42 @@ namespace Proyecto_Programacion_III.Controllers
         public IActionResult DashboardUsuario()
         {
 
-            ViewBag.TotalAgendamentos = _context.Agendamentos.Count();
+            var rol = User.FindFirstValue(ClaimTypes.Role);
+            var usuarioIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            int usuarioId = int.Parse(usuarioIdStr);
 
-            ViewBag.ServicossActivos = _context.Servicos
-               .Count(s => s.Estado == EstadoServicos.Ativo);
+            var agendamentosQuery = _context.Agendamentos.AsQueryable();
 
-            ViewBag.ServicossInativos = _context.Servicos
+            if (rol == "Cliente")
+            {
+                agendamentosQuery = agendamentosQuery.Where(a => a.Cliente.UsuarioId == usuarioId);
+            }
+
+            ViewBag.TotalAgendamentos = agendamentosQuery.Count();
+
+            ViewBag.ServicosActivos = _context.Servicos
+                .Count(s => s.Estado == EstadoServicos.Ativo);
+            ViewBag.ServicosInativos = _context.Servicos
                 .Count(s => s.Estado == EstadoServicos.Inativo);
 
-            ViewBag.AgendamentosProgramadas = _context.Agendamentos
+            ViewBag.AgendamentosProgramadas = agendamentosQuery
                 .Count(c => c.Estado == EstadoAgendamentos.Programada);
-
-            ViewBag.AgendamentosCanceladas = _context.Agendamentos
+            ViewBag.AgendamentosCanceladas = agendamentosQuery
                 .Count(c => c.Estado == EstadoAgendamentos.Cancelada);
 
-            ViewBag.Agendamentos = _context.Agendamentos.ToList();
+            if (rol == "Mecanico")
+            {
+                ViewBag.ServicosPendentes = agendamentosQuery
+                    .Include(a => a.Cliente)
+                    .Include(a => a.Veiculo)
+                    .Include(a => a.Servicos)
+                    .Where(a => a.Estado == EstadoAgendamentos.Programada)
+                    .OrderBy(a => a.Data)
+                    .ToList();
+            }
+
+            ViewBag.Agendamentos = agendamentosQuery.ToList();
+            ViewBag.Rol = rol;
 
             return View();
         }
