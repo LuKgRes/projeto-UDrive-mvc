@@ -1,0 +1,152 @@
+﻿@model IEnumerable<Proyecto_Programacion_III.Models.Entidades.Agendamentos>
+@using Proyecto_Programacion_III.Models.Entidades
+@{
+    var veiculo = ViewBag.Veiculo as Veiculo;
+}
+
+<style>
+    body {
+        background-color: #7b7b7b;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: white;
+    }
+
+    .historico-container {
+        margin: 40px auto;
+    }
+
+    h1 {
+        margin-bottom: 10px;
+        font-size: 34px;
+        font-weight: 600;
+        color: white;
+    }
+
+    h4 {
+        color: #e0e0e0;
+        margin-bottom: 30px;
+    }
+
+    .table {
+        background: #5e5e5e;
+        border-radius: 10px;
+        overflow: hidden;
+        border: none;
+        box-shadow: 0 8px 20px rgba(0,0,0,.25);
+    }
+
+        .table thead {
+            background: #3d3d3d;
+        }
+
+            .table thead th {
+                color: white;
+                padding: 15px;
+                border: none;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-size: 14px;
+            }
+
+        .table tbody td {
+            color: white;
+            padding: 15px;
+            border-top: 1px solid #777;
+        }
+
+        .table tbody tr {
+            transition: .25s;
+        }
+
+            .table tbody tr:hover {
+                background: #6c6c6c;
+            }
+
+    .status {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .programada {
+        background: #0d6efd;
+        color: white;
+    }
+
+    .finalizada {
+        background: #198754;
+        color: white;
+    }
+
+    .cancelada {
+        background: #dc3545;
+        color: white;
+    }
+
+    .btn {
+        margin-top: 20px;
+        border-radius: 8px;
+        transition: .2s;
+    }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+    .btn-secondary {
+        background: #6c757d;
+        border: none;
+        color: white;
+    }
+
+        .btn-secondary:hover {
+            background: #5c636a;
+        }
+</style>
+
+<div class="historico-container">
+
+    <h1>Histórico de Serviços</h1>
+
+    <h4>
+        @veiculo.Modelo - @veiculo.Placa (@veiculo.Cliente.NomeCompleto)
+    </h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Serviço</th>
+                <th>Data</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var classe = item.Estado.ToString() == "Programada"
+                ? "programada"
+                : item.Estado.ToString() == "Finalizada"
+                ? "finalizada"
+                : "cancelada";
+
+                <tr>
+                    <td>@item.Servicos.Nome</td>
+                    <td>@item.Data.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>
+                        <span class="status @classe">
+                            @item.Estado
+                        </span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Voltar
+    </a>
+
+</div>

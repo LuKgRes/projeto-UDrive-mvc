@@ -42,7 +42,7 @@ public class VeiculosController : Controller
     }
 
 
-    public async Task<IActionResult> Details(int? id)
+    public async Task<IActionResult> Historico(int? id)
     {
         if (id == null) return NotFound();
 
@@ -54,10 +54,18 @@ public class VeiculosController : Controller
 
         if (veiculo == null) return NotFound();
 
-        return View(veiculo);
+        var agendamentos = await _context.Agendamentos
+            .Include(a => a.Servicos)
+            .Where(a => a.VeiculoId == id)
+            .OrderByDescending(a => a.Data)
+            .ToListAsync();
+
+        ViewBag.Veiculo = veiculo;
+
+        return View(agendamentos);
     }
 
-   
+
     public IActionResult Create()
     {
         ViewBag.Clientes = ClientesDoUsuario().ToList();

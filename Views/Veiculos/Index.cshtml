@@ -1,39 +1,139 @@
 ﻿@model IEnumerable<Proyecto_Programacion_III.Models.Entidades.Veiculo>
 
-<h1>Veículos</h1>
+    <style>
+    body {
+        background-color: #6d6d6d;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">+ Novo Veículo</a>
-</p>
+  
+    h1 {
+        color: #fff;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Cliente</th>
-            <th>Modelo</th>
-            <th>Placa</th>
-            <th>Cor</th>
-            <th>Marca</th>
-            <th>Ano</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Cliente.NomeCompleto</td>
-                <td>@item.Modelo</td>
-                <td>@item.Placa</td>
-                <td>@item.Cor</td>
-                <td>@item.Marca</td>
-                <td>@item.Ano</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.VeiculoId">Detalhes</a> |
-                    <a asp-action="Edit" asp-route-id="@item.VeiculoId">Editar</a> |
-                    <a asp-action="Delete" asp-route-id="@item.VeiculoId">Excluir</a>
-                </td>
-            </tr>
+    h2 {
+        margin-bottom: 25px;
+        font-size: 34px;
+        font-weight: 600;
+        color: white;
+    }
+ 
+    .btn-primary {
+        border-radius: 6px;
+        font-weight: 600;
+        padding: 8px 18px;
+    }
+
+    .table-container {
+        background: #5f5f5f;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0,0,0,.35);
+    }
+
+
+    .table {
+        margin-bottom: 0;
+    }
+
+     
+        .table thead {
+            background: #3b3b3b;
         }
-    </tbody>
-</table>
+
+            .table thead th {
+                color: #fff;
+                border: none;
+                text-transform: uppercase;
+                font-size: 14px;
+                padding: 16px;
+                font-weight: bold;
+            }
+
+  
+        .table tbody tr {
+            background: #5f5f5f;
+            color: #fff;
+            transition: .2s;
+        }
+
+            .table tbody tr:hover {
+                background: #6c6c6c;
+            }
+
+        .table tbody td {
+            vertical-align: middle;
+            padding: 16px;
+            border-color: rgba(255,255,255,.15);
+        }
+
+
+    .btn-sm {
+        border-radius: 5px;
+        padding: 4px 10px;
+        font-size: 13px;
+        margin-right: 5px;
+    }
+
+    .btn-info {
+        color: #fff;
+    }
+
+    
+    td:last-child {
+        white-space: nowrap;
+    }
+
+   
+    .table-responsive {
+        border-radius: 8px;
+    }
+    </style>
+    
+
+<div class="table-container">
+    <h2>Lista de Veiculos</h2>
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle">
+
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th>Modelo</th>
+                    <th>Placa</th>
+                    <th>Cor</th>
+                    <th>Marca</th>
+                    <th>Ano</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Cliente.NomeCompleto</td>
+                        <td>@item.Modelo</td>
+                        <td>@item.Placa</td>
+                        <td>@item.Cor</td>
+                        <td>@item.Marca</td>
+                        <td>@item.Ano</td>
+
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.VeiculoId" class="btn btn-primary btn-sm">Editar</a>
+
+                            <a asp-action="Historico" asp-route-id="@item.VeiculoId" class="btn btn-info btn-sm">Detalhes</a>
+
+                            <a asp-action="Delete" asp-route-id="@item.VeiculoId" class="btn btn-danger btn-sm">Excluir</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
