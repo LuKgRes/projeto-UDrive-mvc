@@ -151,6 +151,21 @@ public class AgendamentosController : Controller
         return View(Agendamento);
     }
 
+    public async Task<IActionResult> Details(int? id)
+    {
+        if (id == null) return NotFound();
+
+        var agendamento = await _context.Agendamentos
+            .Include(a => a.Cliente)
+            .Include(a => a.Veiculo)
+            .Include(a => a.Servicos)
+            .FirstOrDefaultAsync(a => a.Id == id);
+
+        if (agendamento == null) return NotFound();
+
+        return View(agendamento);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Edit(Agendamentos Agendamento)
     {

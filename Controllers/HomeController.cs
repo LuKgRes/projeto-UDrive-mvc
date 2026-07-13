@@ -39,18 +39,6 @@ namespace Proyecto_Programacion_III.Controllers
         }
 
 
-        public IActionResult LoginAdmin()
-        {
-            HttpContext.Session.SetString("Rol", "Administrador");
-            return RedirectToAction("Index");
-        }
-
-
-        public IActionResult LoginUsuario()
-        {
-            HttpContext.Session.SetString("Rol", "Usuario");
-            return RedirectToAction("Index");
-        }
         public IActionResult Privacy()
         {
             return View();
@@ -63,10 +51,10 @@ namespace Proyecto_Programacion_III.Controllers
             ViewBag.TotalAgendamentos = _context.Agendamentos.Count();
 
 
-            ViewBag.ServicossActivos = _context.Servicos
+            ViewBag.ServicosActivos = _context.Servicos
                 .Count(s => s.Estado == EstadoServicos.Ativo);
 
-            ViewBag.ServicossInativos = _context.Servicos
+            ViewBag.ServicosInativos = _context.Servicos
                 .Count(s => s.Estado == EstadoServicos.Inativo);
 
             ViewBag.AgendamentosProgramadas = _context.Agendamentos
@@ -76,18 +64,18 @@ namespace Proyecto_Programacion_III.Controllers
                 .Count(c => c.Estado == EstadoAgendamentos.Cancelada);
 
 
-            var topServicoss = _context.Agendamentos
-                .GroupBy(c => c.Servicos.Nome)
-                .Select(g => new
-                {
-                    Servicos = g.Key,
-                    Total = g.Count()
-                })
-                .OrderByDescending(x => x.Total)
-                .Take(3)
-                .ToList();
-
-            ViewBag.TopServicoss = topServicoss;
+            var topServicos = _context.Agendamentos
+    .Where(c => !c.Servicos.Personalizado)
+    .GroupBy(c => c.Servicos.Nome)
+    .Select(g => new
+    {
+        Servicos = g.Key,
+        Total = g.Count()
+    })
+    .OrderByDescending(x => x.Total)
+    .Take(3)
+    .ToList();
+            ViewBag.TopServicos = topServicos;
 
             return View();
         }

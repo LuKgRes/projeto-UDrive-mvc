@@ -1,0 +1,25 @@
+﻿@model Proyecto_Programacion_III.Models.Entidades.Agendamentos
+
+<h1>Detalhes do Agendamento</h1>
+
+<dl class="row">
+    <dt class="col-sm-3">Cliente</dt>
+    <dd class="col-sm-9">@Model.Cliente.NomeCompleto</dd>
+
+    <dt class="col-sm-3">Veículo</dt>
+    <dd class="col-sm-9">@Model.Veiculo.Modelo - @Model.Veiculo.Placa</dd>
+
+    <dt class="col-sm-3">Serviço</dt>
+    <dd class="col-sm-9">@Model.Servicos.Nome</dd>
+
+    <dt class="col-sm-3">Descrição</dt>
+    <dd class="col-sm-9">@Model.Servicos.Descricao</dd>
+
+    <dt class="col-sm-3">Data</dt>
+    <dd class="col-sm-9">@Model.Data.ToString("dd/MM/yyyy HH:mm")</dd>
+
+    <dt class="col-sm-3">Estado</dt>
+    <dd class="col-sm-9">@Model.Estado</dd>
+</dl>
+
+<a asp-action="Index" class="btn btn-secondary">Voltar</a>

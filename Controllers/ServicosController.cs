@@ -15,8 +15,11 @@ public class ServicosController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var Servicoss = await _context.Servicos.ToListAsync();
-        return View(Servicoss);
+        var Servicos = await _context.Servicos
+         .Where(s => !s.Personalizado)
+         .ToListAsync();
+
+        return View(Servicos);
     }
     public IActionResult Create()
     {

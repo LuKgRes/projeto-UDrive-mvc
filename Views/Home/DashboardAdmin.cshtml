@@ -1,4 +1,103 @@
-﻿<br />
+﻿<style>
+    body {
+        background-color: #7b7b7b;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: white;
+    }
+
+    h2 {
+        color: white;
+        font-size: 34px;
+        font-weight: 600;
+        margin-bottom: 35px;
+    }
+
+    h4 {
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,.25);
+        transition: .25s;
+        margin-bottom: 20px;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h5 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 42px;
+            color: white;
+        }
+
+    .bg-primary {
+        background: #0d6efd !important;
+    }
+
+    .bg-success {
+        background: #198754 !important;
+    }
+
+    .bg-danger {
+        background: #dc3545 !important;
+    }
+
+    .bg-secondary {
+        background: #6c757d !important;
+    }
+
+    .table {
+        background: #5e5e5e;
+        border-radius: 10px;
+        overflow: hidden;
+        border: none;
+        box-shadow: 0 8px 20px rgba(0,0,0,.25);
+    }
+
+        .table thead {
+            background: #3d3d3d;
+        }
+
+            .table thead th {
+                color: white;
+                border: none;
+                padding: 15px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-size: 14px;
+            }
+
+        .table tbody td {
+            color: white;
+            padding: 15px;
+            border-top: 1px solid #777;
+        }
+
+        .table tbody tr {
+            transition: .25s;
+        }
+
+            .table tbody tr:hover {
+                background: #6c6c6c;
+            }
+
+    .row {
+        margin-bottom: 10px;
+    }
+</style>
+
+<br />
 <br />
 <h2>Dashboard Administrador</h2>
 <br />
@@ -6,21 +105,21 @@
 
     <div class="row">
 
-        <div class="col-md-3">
+    <div class="col-lg-4 col-md-6 mb-3">
             <div class="card bg-primary text-white p-3">
                 <h5>Usuarios</h5>
                 <h2>@ViewBag.TotalUsuarios</h2>
             </div>
         </div>
 
-        <div class="col-md-3">
+    <div class="col-lg-4 col-md-6 mb-3">
             <div class="card bg-primary text-white p-3">
                 <h5>Clientes</h5>
                 <h2>@ViewBag.TotalClientes</h2>
             </div>
         </div>
 
-        <div class="col-md-3">
+    <div class="col-lg-4 col-md-6 mb-3">
             <div class="card bg-primary text-white p-3">
                 <h5>Agendamentos</h5>
                 <h2>@ViewBag.TotalAgendamentos</h2>
@@ -30,17 +129,17 @@
 
     <div class="row mt-3">
 
-        <div class="col-md-3">
+    <div class="col-lg-4 col-md-6 mb-3">
             <div class="card bg-success text-white p-3">
-                <h5>Servicoss Activos</h5>
-                <h2>@ViewBag.ServicossActivos</h2>
+                <h5>Servicos Activos</h5>
+                <h2>@ViewBag.ServicosActivos</h2>
             </div>
         </div>
 
-        <div class="col-md-3">
+    <div class="col-lg-4 col-md-6 mb-3">
             <div class="card bg-danger text-white p-3">
-                <h5>Servicoss Inativos</h5>
-                <h2>@ViewBag.ServicossInativos</h2>
+                <h5>Servicos Inativos</h5>
+                <h2>@ViewBag.ServicosInativos</h2>
             </div>
         </div>
 
@@ -48,14 +147,14 @@
 
     <div class="row mt-3">
 
-        <div class="col-md-3">
+    <div class="col-lg-4 col-md-6 mb-3">
             <div class="card bg-success text-white p-3">
                 <h5>Programadas</h5>
                 <h2>@ViewBag.AgendamentosProgramadas</h2>
             </div>
         </div>
 
-        <div class="col-md-3">
+    <div class="col-lg-4 col-md-6 mb-3">
             <div class="card bg-secondary text-white p-3">
                 <h5>Canceladas</h5>
                 <h2>@ViewBag.AgendamentosCanceladas</h2>
@@ -66,17 +165,17 @@
 <br />
 
     <div class="mt-4">
-        <h4>Top 3 Servicoss</h4>
+        <h4>Top 3 Servicos</h4>
 
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Servicos</th>
-                    <th>Cantidad</th>
+                    <th>Quantia</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in ViewBag.TopServicoss)
+                @foreach (var item in ViewBag.TopServicos)
                 {
                     <tr>
                         <td>@item.Servicos</td>
@@ -86,12 +185,6 @@
             </tbody>
         </table>
     </div>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
 <br />
 <br />
 <br />

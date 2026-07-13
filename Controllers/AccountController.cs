@@ -101,10 +101,16 @@ namespace Proyecto_Programacion_III.Controllers
         };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(identity));
 
-            return RedirectToAction("Index", "Home");
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+      new ClaimsPrincipal(identity));
+
+            if (usuario.Rol == "Administrador")
+            {
+                return RedirectToAction("DashboardAdmin", "Home");
+            }
+
+            return RedirectToAction("DashboardUsuario", "Home");
         }
 
         public async Task<IActionResult> Logout()
